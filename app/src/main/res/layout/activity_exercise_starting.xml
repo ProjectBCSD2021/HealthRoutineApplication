@@ -7,16 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".ExerciseStartingActivity">
     <TextView
+        android:id="@+id/exerciseState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/state_exercising"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
         android:id="@+id/exerciseTimer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="00:00"
         android:textSize="60sp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/exerciseState" />
     <FrameLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"

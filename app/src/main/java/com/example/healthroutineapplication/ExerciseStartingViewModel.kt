@@ -10,15 +10,17 @@ import kotlin.concurrent.timer
 class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewModel() {
     private val _time = MutableLiveData<String>()
     private val _exerciseList = MutableLiveData<ArrayList<ExerciseRoutine>>()
+    private val _resting = MutableLiveData<Boolean>() //true면 쉬는시간 false면 운동시간
     val time : LiveData<String>
         get() = _time
     val exerciseList : LiveData<ArrayList<ExerciseRoutine>>
         get() = _exerciseList
+    val resting : LiveData<Boolean>
+        get() = _resting
     private var listItems = ArrayList<ExerciseRoutine>()
     private var timer : Timer? = null
     private var min = 0
     private var sec = 0
-    private var resting = false //true면 쉬는시간 false면 운동시간
     var nowIndex = 0 //현재 진행중인 운동 인덱스
     private var dataSize = 0 //총 운동 수
     init{
@@ -37,12 +39,12 @@ class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewMod
                     sec = 59
                 }
                 else if(min == 0){ //0분0초인경우
-                    if(resting){ // 쉬는시간이 끝난경우
-                        resting = false
+                    if(_resting.value == true){ // 쉬는시간이 끝난경우
+                        _resting.postValue(false)
                         secToMinSec(listItems[nowIndex].exerciseTimeSec)
                     }
                     else{ // 운동시간이 끝난경우
-                        resting = true
+                        _resting.postValue(true)
                         secToMinSec(listItems[nowIndex].restTimeSec)
                         listItems[nowIndex].setCount--
                         _exerciseList.postValue(listItems)

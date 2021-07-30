@@ -30,6 +30,10 @@ class ExerciseStartingActivity : AppCompatActivity() {
             adapter.highlightPosition = viewModel.nowIndex
             adapter.setData(it)
         })
+        viewModel.resting.observe(this,{
+            if(it) binding.exerciseState.text = getString(R.string.state_resting)
+            else binding.exerciseState.text = getString(R.string.state_exercising)
+        })
         binding.startButton.setOnClickListener {
             viewModel.startTimer()
             binding.startButton.visibility = View.INVISIBLE

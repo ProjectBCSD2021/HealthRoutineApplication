@@ -4,4 +4,6 @@
     <string name="exercise_set">남은\n세트 수</string>
     <string name="start">시 작</string>
     <string name="pause">일시정지</string>
+    <string name="state_exercising">운동 시간</string>
+    <string name="state_resting">쉬는 시간</string>
 </resources>
