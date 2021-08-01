@@ -1,5 +1,8 @@
 package com.example.healthroutineapplication
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +12,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class WorkOutListAdapter() :
+class WorkOutListAdapter(val context: Context) :
     ListAdapter<Exercise, WorkOutListAdapter.WorkOutListViewHolder>(WORKOUTLIST_COMPARATOR) {
+    private val workOutMethod = arrayOf("덤벨","머신","바벨","스미스 머신","케이블")
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkOutListViewHolder {
         return WorkOutListViewHolder.create(parent)
     }
@@ -20,7 +24,13 @@ class WorkOutListAdapter() :
         with(holder){
             bind(current.name)
             root.setOnClickListener {
+                val builder = AlertDialog.Builder(context)
+                builder.setTitle("운동 방식").setMultiChoiceItems(workOutMethod,null){dialog,which,isChecked->
 
+                }
+                builder.setPositiveButton("추가하기"){builder,which->}
+                builder.setNeutralButton("돌아가기"){builder,which->}
+                builder.show()
             }
         }
     }

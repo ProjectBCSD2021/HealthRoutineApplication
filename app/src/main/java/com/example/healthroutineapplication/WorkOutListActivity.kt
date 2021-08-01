@@ -19,7 +19,7 @@ class WorkOutListActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_work_out_list)
 
         val recyclerView = binding.workOutListRecyclerView
-        val adapter = WorkOutListAdapter()
+        val adapter = WorkOutListAdapter(this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
