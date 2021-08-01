@@ -6,6 +6,8 @@ import androidx.lifecycle.asLiveData
 import kotlinx.coroutines.flow.asFlow
 
 class WorkOutListRepository() {
+    //운동 리스트를 livedata<list<Exercise>> 형식으로 변환한다.
+
     val chestExerciseList = MutableLiveData(getChestExerciseList())
 
     val letExerciseList= MutableLiveData(getLetExerciseList())

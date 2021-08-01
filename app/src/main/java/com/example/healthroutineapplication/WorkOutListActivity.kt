@@ -23,6 +23,10 @@ class WorkOutListActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        /*
+        * 메인에서 선택한 운동의 id를 받아서 운동을 나열한다.
+        * */
+
         when (i) {
             1 -> {
                 workOutListViewModel.chestWorkOutList.observe(owner = this) { exercise ->

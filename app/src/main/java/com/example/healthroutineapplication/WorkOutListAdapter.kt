@@ -23,6 +23,8 @@ class WorkOutListAdapter(val context: Context) :
         val current = getItem(position)
         with(holder){
             bind(current.name)
+
+            //운동을 선택하면 어떻게 운동할 것인지 체크하는 AlertDialog를 띄운다.
             root.setOnClickListener {
                 val builder = AlertDialog.Builder(context)
                 builder.setTitle("운동 방식").setMultiChoiceItems(workOutMethod,null){dialog,which,isChecked->
