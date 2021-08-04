@@ -40,23 +40,33 @@
             android:id="@+id/startButton"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:text="@string/start"
             android:textSize="25sp"
             android:background="@drawable/exercise_starting_button"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="left|center_vertical"
             android:gravity="center"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pauseButton"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:text="@string/pause"
             android:textSize="25sp"
             android:background="@drawable/exercise_starting_button"
-            android:layout_gravity="right|center_vertical"
+            android:layout_gravity="left|center_vertical"
             android:visibility="invisible"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/nextButton"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="@string/next"
+            android:textSize="25sp"
+            android:background="@drawable/exercise_starting_button"
+            android:layout_gravity="right|center_vertical" />
     </FrameLayout>
 
     <LinearLayout

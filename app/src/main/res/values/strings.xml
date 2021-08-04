@@ -6,4 +6,5 @@
     <string name="pause">일시정지</string>
     <string name="state_exercising">운동 시간</string>
     <string name="state_resting">쉬는 시간</string>
+    <string name="next">다 음</string>
 </resources>

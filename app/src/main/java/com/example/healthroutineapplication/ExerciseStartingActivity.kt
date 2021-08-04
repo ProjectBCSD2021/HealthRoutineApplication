@@ -17,7 +17,7 @@ class ExerciseStartingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_exercise_starting)
         binding.recyclerView.adapter = adapter
         val dataList = intent.getSerializableExtra("exerciseStarting") as ArrayList<ExerciseRoutine>
-        //Intent를 이용해 ArrayList를 받아옴
+        //Intent를 이용해 ArrayList<ExerciseRoutine>를 받아옴
         viewModel = ViewModelProvider(this, ExerciseStartingViewModelFactory(dataList)).get(ExerciseStartingViewModel::class.java)
         viewModel.time.observe(this,{
             binding.exerciseTimer.text = it
@@ -34,15 +34,23 @@ class ExerciseStartingActivity : AppCompatActivity() {
             if(it) binding.exerciseState.text = getString(R.string.state_resting)
             else binding.exerciseState.text = getString(R.string.state_exercising)
         })
+        viewModel.timerEnable.observe(this,{
+            if(it){
+                binding.startButton.visibility = View.INVISIBLE
+                binding.pauseButton.visibility = View.VISIBLE
+            } else{
+                binding.pauseButton.visibility = View.INVISIBLE
+                binding.startButton.visibility = View.VISIBLE
+            }
+        })
         binding.startButton.setOnClickListener {
             viewModel.startTimer()
-            binding.startButton.visibility = View.INVISIBLE
-            binding.pauseButton.visibility = View.VISIBLE
         }
         binding.pauseButton.setOnClickListener {
             viewModel.stopTimer()
-            binding.pauseButton.visibility = View.INVISIBLE
-            binding.startButton.visibility = View.VISIBLE
+        }
+        binding.nextButton.setOnClickListener {
+            viewModel.next()
         }
     }
 }
