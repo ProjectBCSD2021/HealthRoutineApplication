@@ -10,4 +10,5 @@
     <color name="exercise_starting">#B5D0FA</color>
     <color name="gray">#D1D1D1</color>
     <color name="yellow">#FFDD69</color>
+    <color name="pointColor">#444CFF</color>
 </resources>

@@ -4,6 +4,7 @@ import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.healthroutineapplication.databinding.ActivityExerciseStartingBinding
@@ -50,7 +51,7 @@ class ExerciseStartingActivity : AppCompatActivity() {
             viewModel.stopTimer()
         }
         binding.nextButton.setOnClickListener {
-            viewModel.next()
+            if(!viewModel.next()) Toast.makeText(this,"운동이 끝났습니다.",Toast.LENGTH_SHORT).show()
         }
     }
 }

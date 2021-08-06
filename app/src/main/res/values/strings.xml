@@ -7,4 +7,8 @@
     <string name="state_exercising">운동 시간</string>
     <string name="state_resting">쉬는 시간</string>
     <string name="next">다 음</string>
+    <string name="routine_set">세트 수 : </string>
+    <string name="routine_exercise_time">운동 시간 : </string>
+    <string name="routine_rest_time">쉬는 시간 : </string>
+    <string name="routine_exercise_start">운동 시작하기</string>
 </resources>

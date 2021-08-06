@@ -63,9 +63,10 @@ class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewMod
         timer?.cancel()
         _timerEnable.value = false
     }
-    fun next(){
+    fun next() : Boolean{
         stopTimer()
         if(_resting.value == true){
+            if(nowIndex>=dataSize) return false
             _resting.value = false
             endRestTime()
         } else{
@@ -74,6 +75,7 @@ class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewMod
             _exerciseList.value = listItems
         }
         _time.value = minSecToTime(min,sec)
+        return true
     }
     private fun endRestTime(){
         secToMinSec(listItems[nowIndex].exerciseTimeSec)
