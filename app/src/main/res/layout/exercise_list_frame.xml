@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="벤트 오버 레터럴 레이즈"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="스미스 머신"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="263dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100kg"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="34dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="60"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="309dp"
+        tools:layout_editor_absoluteY="69dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

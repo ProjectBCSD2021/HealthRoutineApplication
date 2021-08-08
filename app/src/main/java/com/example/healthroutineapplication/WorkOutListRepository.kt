@@ -19,4 +19,5 @@ class WorkOutListRepository() {
     val armExerciseList= MutableLiveData(getArmExerciseList())
 
     val absExerciseList= MutableLiveData(getAbsExerciseList())
+
 }
