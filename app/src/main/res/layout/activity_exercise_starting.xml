@@ -13,6 +13,7 @@
         android:text="@string/state_exercising"
         android:textSize="30sp"
         android:gravity="center"
+        android:textColor="@color/pointColor"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,13 +24,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="00:00"
+        android:textColor="@color/black"
         android:textSize="60sp"
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/exerciseState" />
     <FrameLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -43,7 +45,7 @@
             android:layout_marginLeft="20dp"
             android:text="@string/start"
             android:textSize="25sp"
-            android:background="@drawable/exercise_starting_button"
+            android:background="@drawable/exercise_button"
             android:layout_gravity="left|center_vertical"
             android:gravity="center"/>
         <androidx.appcompat.widget.AppCompatButton
@@ -54,7 +56,7 @@
             android:gravity="center"
             android:text="@string/pause"
             android:textSize="25sp"
-            android:background="@drawable/exercise_starting_button"
+            android:background="@drawable/exercise_button"
             android:layout_gravity="left|center_vertical"
             android:visibility="invisible"/>
         <androidx.appcompat.widget.AppCompatButton
@@ -65,38 +67,37 @@
             android:gravity="center"
             android:text="@string/next"
             android:textSize="25sp"
-            android:background="@drawable/exercise_starting_button"
+            android:background="@drawable/exercise_button"
             android:layout_gravity="right|center_vertical" />
     </FrameLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <TextView
+        android:id="@+id/exerciseListText"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_weight="9"
+        android:background="@color/exercise_starting"
+        android:gravity="center"
+        android:text="@string/exercise_list"
+        android:textColor="@color/black"
+        android:textSize="20sp"
         android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+        app:layout_constraintEnd_toStartOf="@+id/setText"/>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="9"
-            android:background="@color/exercise_starting"
-            android:gravity="center"
-            android:text="@string/exercise_list"
-            android:textSize="30sp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:background="@color/exercise_starting"
-            android:gravity="center"
-            android:text="@string/exercise_set"
-            android:textSize="15sp" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/setText"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_weight="2"
+        android:background="@color/exercise_starting"
+        android:gravity="center"
+        android:text="@string/exercise_set"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -106,7 +107,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/exerciseListText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -51,7 +51,17 @@ class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewMod
                     }
                     else{ // 운동시간이 끝난경우
                         _resting.postValue(true)
-                        endExerciseTime()
+                        secToMinSec(listItems[nowIndex].restTimeSec)
+                        listItems[nowIndex].setCount--
+                        if(listItems[nowIndex].setCount==0){//마지막 세트가 끝나면
+                            nowIndex++//다음 운동
+                            if(nowIndex==dataSize){ //마지막운동이 끝나면
+                                stopTimer()
+                                _timerEnable.postValue(false)
+                                min = 0
+                                sec = 0
+                            }
+                        }
                         _exerciseList.postValue(listItems)
                     }
                 }
@@ -61,10 +71,10 @@ class ExerciseStartingViewModel(dataList : ArrayList<ExerciseRoutine>) : ViewMod
     }
     fun stopTimer(){
         timer?.cancel()
-        _timerEnable.value = false
     }
     fun next() : Boolean{
         stopTimer()
+        _timerEnable.value = false
         if(_resting.value == true){
             if(nowIndex>=dataSize) return false
             _resting.value = false

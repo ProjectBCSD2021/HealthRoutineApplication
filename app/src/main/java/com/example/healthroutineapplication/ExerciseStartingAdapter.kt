@@ -1,9 +1,12 @@
 package com.example.healthroutineapplication
 
 import android.content.Context
+import android.graphics.Typeface
+import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.databinding.ExerciseStartRecyclerBinding
 
@@ -15,12 +18,12 @@ class ExerciseStartingAdapter(private val context : Context) : RecyclerView.Adap
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(datas[position])
         if(position == highlightPosition){
-            holder.binding.exercise.background = getDrawable(context,R.drawable.exercise_starting_list_now)
-            holder.binding.set.background = getDrawable(context,R.drawable.exercise_starting_list_now)
+            holder.binding.exercise.setTextColor(ContextCompat.getColor(context,R.color.pointColor))
+            holder.binding.exercise.setTypeface(null, Typeface.BOLD)
         }
         else{
-            holder.binding.exercise.background = getDrawable(context,R.drawable.exercise_starting_list)
-            holder.binding.set.background = getDrawable(context,R.drawable.exercise_starting_list)
+            holder.binding.exercise.setTextColor(ContextCompat.getColor(context,R.color.black))
+            holder.binding.exercise.setTypeface(null, Typeface.NORMAL)
         }
     }
 
@@ -30,8 +33,11 @@ class ExerciseStartingAdapter(private val context : Context) : RecyclerView.Adap
     }
     inner class ViewHolder(val binding : ExerciseStartRecyclerBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : ExerciseRoutine){
-            binding.exerciseName = item.exercise
-            binding.exerciseSet = item.setCount.toString()
+            binding.exercise.text = item.exercise
+            binding.set.text = item.setCount.toString()
+            binding.exerciseTime.text = item.exerciseTimeSec.toString()+"초"
+            binding.restTime.text = item.restTimeSec.toString()+"초"
+            binding.weight.text = item.weight.toString()+"kg"
         }
     }
     fun setData(dataList : ArrayList<ExerciseRoutine>){
