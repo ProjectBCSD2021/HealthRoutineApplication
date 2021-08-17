@@ -1,65 +1,54 @@
 package com.example.healthroutineapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthroutineapplication.databinding.ActivityWorkOutListBinding
-import androidx.lifecycle.observe
+import com.google.android.material.tabs.TabLayout
 
 class WorkOutListActivity : AppCompatActivity() {
     lateinit var binding: ActivityWorkOutListBinding
-    private val workOutListViewModel: WorkOutListViewModel by viewModels {
-        WorkOutListViewModelFactory(WorkOutListRepository())
-    }
-    val i: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_work_out_list)
 
-        val recyclerView = binding.workOutListRecyclerView
-        val adapter = WorkOutListAdapter(this)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        with(binding){
 
-        /*
-        * 메인에서 선택한 운동의 id를 받아서 운동을 나열한다.
-        * */
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("가슴"))
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("등"))
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("하체"))
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("어깨"))
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("팔"))
+            workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("복근"))
+
+            val pagerAdapter = WorkOutListPagerAdapter(supportFragmentManager,6)
+            workOutListViewPager.adapter = pagerAdapter
+
+            workOutListTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+                //tab이 클릭 됬을 때
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    workOutListViewPager.setCurrentItem(tab!!.position)
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
 
 
-        when (i) {
-            1 -> {
-                workOutListViewModel.chestWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
+                override fun onTabReselected(tab: TabLayout.Tab?) {
                 }
-            }
-            2->{
-                workOutListViewModel.letWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
-                }
-            }
-            3->{
-                workOutListViewModel.shoulderWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
-                }
-            }
-            4->{
-                workOutListViewModel.legWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
-                }
-            }
-            5->{
-                workOutListViewModel.armWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
-                }
-            }
-            6->{
-                workOutListViewModel.absWorkOutList.observe(owner = this) { exercise ->
-                    exercise?.let { adapter.submitList(it) }
-                }
+
+            })
+            //페이저를 이동했을 때 탭을 이동시키는 코드
+            workOutListViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(workOutListTabLayout))
+
+            workOutListBtn.setOnClickListener {
+                val intent = Intent(this@WorkOutListActivity,ExerciseListActivity::class.java )
+                startActivity(intent)
             }
         }
 
     }
+
 }

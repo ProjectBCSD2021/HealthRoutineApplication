@@ -1,8 +1,6 @@
 package com.example.healthroutineapplication
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +11,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class WorkOutListAdapter(val context: Context) :
+class WorkOutListAdapter(val test: ExerciseListAdd) :
     ListAdapter<Exercise, WorkOutListAdapter.WorkOutListViewHolder>(WORKOUTLIST_COMPARATOR) {
-    private val workOutMethod = arrayOf("덤벨", "머신", "바벨", "스미스 머신", "케이블")
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkOutListViewHolder {
         return WorkOutListViewHolder.create(parent)
     }
@@ -27,12 +25,13 @@ class WorkOutListAdapter(val context: Context) :
 
             //운동을 선택하면 어떻게 운동할 것인지 체크하는 AlertDialog를 띄운다.
             root.setOnClickListener {
-                val builder = AlertDialog.Builder(context)
-                builder.setTitle("운동 방식").setSingleChoiceItems(workOutMethod, -1) { dialogInterface, which ->
-                    ExerciseData(current.name,workOutMethod[which])
-                    Toast.makeText(context,"추가",Toast.LENGTH_SHORT).show()
-                    dialogInterface.dismiss()
-                }
+                val builder = AlertDialog.Builder(itemView.context)
+                builder.setTitle("운동 방식")
+                    .setSingleChoiceItems(current.test, -1) { dialogInterface, which ->
+                        test.ExerciseAdd(current.name,current.test[which])
+                        Toast.makeText(itemView.context, "추가", Toast.LENGTH_SHORT).show()
+                        dialogInterface.dismiss()
+                    }
                 builder.setNeutralButton("돌아가기") { builder, which -> }
                 builder.show()
             }

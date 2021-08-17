@@ -12,7 +12,12 @@ class WorkOutListViewModel(private val workOutListRepository: WorkOutListReposit
     val legWorkOutList = workOutListRepository.legExerciseList
     val armWorkOutList = workOutListRepository.armExerciseList
     val absWorkOutList = workOutListRepository.absExerciseList
+    val myWorkOutList = workOutListRepository.myExerciseList
 }
+
+
+
+
 
 class WorkOutListViewModelFactory(private val workOutListRepository: WorkOutListRepository) :
     ViewModelProvider.Factory {
