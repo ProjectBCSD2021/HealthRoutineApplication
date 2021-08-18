@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         val actionBar: ActionBar = supportActionBar!!
         actionBar.setDisplayShowTitleEnabled(false)
+
         replaceFragment(MainFragment())
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
