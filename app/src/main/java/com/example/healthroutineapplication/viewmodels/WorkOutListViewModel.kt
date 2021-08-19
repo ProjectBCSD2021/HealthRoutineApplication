@@ -2,6 +2,7 @@ package com.example.healthroutineapplication
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.healthroutineapplication.repositories.WorkOutListRepository
 import java.lang.IllegalArgumentException
 
 
@@ -13,11 +14,10 @@ class WorkOutListViewModel(private val workOutListRepository: WorkOutListReposit
     val armWorkOutList = workOutListRepository.armExerciseList
     val absWorkOutList = workOutListRepository.absExerciseList
     val myWorkOutList = workOutListRepository.myExerciseList
+
+    val choiceRList = workOutListRepository.mychoiceRoutineList
+
 }
-
-
-
-
 
 class WorkOutListViewModelFactory(private val workOutListRepository: WorkOutListRepository) :
     ViewModelProvider.Factory {
@@ -30,3 +30,4 @@ class WorkOutListViewModelFactory(private val workOutListRepository: WorkOutList
     }
 
 }
+

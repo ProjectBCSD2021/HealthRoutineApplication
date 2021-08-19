@@ -1,9 +1,11 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.healthroutineapplication.R
+import com.example.healthroutineapplication.adapters.WorkOutListPagerAdapter
 import com.example.healthroutineapplication.databinding.ActivityWorkOutListBinding
 import com.google.android.material.tabs.TabLayout
 
@@ -44,7 +46,7 @@ class WorkOutListActivity : AppCompatActivity() {
             workOutListViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(workOutListTabLayout))
 
             workOutListBtn.setOnClickListener {
-                val intent = Intent(this@WorkOutListActivity,ExerciseListActivity::class.java )
+                val intent = Intent(this@WorkOutListActivity, ExerciseListActivity::class.java )
                 startActivity(intent)
             }
         }

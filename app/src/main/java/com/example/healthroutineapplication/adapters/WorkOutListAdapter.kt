@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.adapters
 
 import android.app.AlertDialog
 import android.view.LayoutInflater
@@ -10,6 +10,9 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.Exercise
+import com.example.healthroutineapplication.interfaces.ExerciseListAdd
+import com.example.healthroutineapplication.R
 
 class WorkOutListAdapter(val test: ExerciseListAdd) :
     ListAdapter<Exercise, WorkOutListAdapter.WorkOutListViewHolder>(WORKOUTLIST_COMPARATOR) {

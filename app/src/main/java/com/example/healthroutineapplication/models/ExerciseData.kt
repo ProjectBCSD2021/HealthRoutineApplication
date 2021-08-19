@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.models
 
 data class ExerciseData(
     val exercise:String,

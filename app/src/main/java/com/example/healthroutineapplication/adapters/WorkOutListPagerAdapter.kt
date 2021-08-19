@@ -1,13 +1,17 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import com.example.healthroutineapplication.models.ExerciseData
+import com.example.healthroutineapplication.interfaces.ExerciseListAdd
+import com.example.healthroutineapplication.fragments.WorkOutListFragment
+import com.example.healthroutineapplication.exerciseList
 
 class WorkOutListPagerAdapter(
     fragmentManager: FragmentManager,
     val tabCount: Int
-) : FragmentStatePagerAdapter(fragmentManager),ExerciseListAdd {
+) : FragmentStatePagerAdapter(fragmentManager), ExerciseListAdd {
 
     override fun getCount(): Int {
         return tabCount

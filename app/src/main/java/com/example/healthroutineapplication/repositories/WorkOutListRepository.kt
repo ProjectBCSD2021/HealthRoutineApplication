@@ -1,6 +1,7 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.repositories
 
 import androidx.lifecycle.MutableLiveData
+import com.example.healthroutineapplication.*
 
 class WorkOutListRepository() {
     //운동 리스트를 livedata<list<Exercise>> 형식으로 변환한다.
@@ -18,5 +19,7 @@ class WorkOutListRepository() {
     val absExerciseList= MutableLiveData(getAbsExerciseList())
 
     val myExerciseList = MutableLiveData(exerciseList)
+
+    val mychoiceRoutineList = MutableLiveData(choiceRoutineList)
 
 }

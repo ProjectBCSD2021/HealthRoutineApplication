@@ -1,5 +1,7 @@
 package com.example.healthroutineapplication
 
+import com.example.healthroutineapplication.models.ExerciseData
+
 fun getChestExerciseList(): List<Exercise> {
     return listOf(
         Exercise(
@@ -186,4 +188,6 @@ fun getAbsExerciseList(): List<Exercise> {
 }
 
 val exerciseList = mutableListOf<ExerciseData>()
+
+var choiceRoutineList:List<ExerciseData>? = listOf<ExerciseData>()
 

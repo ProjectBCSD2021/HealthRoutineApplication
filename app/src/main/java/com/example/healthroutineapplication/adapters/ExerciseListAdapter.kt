@@ -1,9 +1,6 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.adapters
 
 import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.NonDisposableHandle.parent
-import kotlin.coroutines.coroutineContext
+import com.example.healthroutineapplication.models.ExerciseData
+import com.example.healthroutineapplication.R
+import com.example.healthroutineapplication.exerciseList
 
 class ExerciseListAdapter(val inflater: LayoutInflater) :
     ListAdapter<ExerciseData, ExerciseListAdapter.ExerciseListViewHolder>(EXERCISELIST_COMPARATOR) {
