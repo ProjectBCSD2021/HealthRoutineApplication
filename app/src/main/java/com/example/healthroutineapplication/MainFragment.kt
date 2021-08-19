@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.databinding.ActivityMainBinding
@@ -33,6 +34,10 @@ class MainFragment : Fragment() {
             add(Exercise("운동4",4,40))
             add(Exercise("운동5",5,50))
             add(Exercise("운동6",6,60))
+            add(Exercise("운동7",7,70))
+            add(Exercise("운동8",8,80))
+            add(Exercise("운동9",9,90))
+            add(Exercise("운동10",10,100))
         }
 
         myAdapter.replaceList(mData)
@@ -41,8 +46,5 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
 
-    }
 }
