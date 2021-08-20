@@ -17,7 +17,7 @@ import com.example.healthroutineapplication.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity() {
+class MainListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
