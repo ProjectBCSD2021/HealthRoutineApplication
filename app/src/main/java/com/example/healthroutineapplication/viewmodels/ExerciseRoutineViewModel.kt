@@ -23,7 +23,7 @@ class ExerciseRoutineViewModel(private val exerciseRoutineRepository: ExerciseRo
 
 class ExerciseRoutineViewModelFactory(private val exerciseRoutineRepository: ExerciseRoutineRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ExerciseRoutineViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ExerciseRoutineViewModel(exerciseRoutineRepository) as T

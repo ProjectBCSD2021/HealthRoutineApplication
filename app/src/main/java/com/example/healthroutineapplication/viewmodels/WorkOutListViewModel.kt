@@ -21,7 +21,7 @@ class WorkOutListViewModel(private val workOutListRepository: WorkOutListReposit
 
 class WorkOutListViewModelFactory(private val workOutListRepository: WorkOutListRepository) :
     ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(WorkOutListViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return WorkOutListViewModel(workOutListRepository) as T
