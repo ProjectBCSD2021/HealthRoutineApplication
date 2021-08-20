@@ -14,14 +14,14 @@ import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelFactory
 
-class MainListActivity : AppCompatActivity(),GoActivity {
-    lateinit var binding: ActivityMainBinding
+class MainActivity : AppCompatActivity(),GoActivity {
+    lateinit var binding:ActivityMainBinding
     private val exerciseRoutineViewModel:ExerciseRoutineViewModel by viewModels{
         ExerciseRoutineViewModelFactory((application as ExerciseRoutineApp).repository)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main_list)
+        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         val recyclerView=binding.mainRecyclerview
         val adapter=WorkOutRoutineAdapter(this)
