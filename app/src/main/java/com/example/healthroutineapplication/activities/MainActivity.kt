@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthroutineapplication.ExerciseRoutineApp
 import com.example.healthroutineapplication.R
-import com.example.healthroutineapplication.adapters.ExerciseRoutineAdapter
+import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.ActivityMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity(),GoActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         val recyclerView=binding.mainRecyclerview
-        val adapter=ExerciseRoutineAdapter(this)
+        val adapter=WorkOutRoutineAdapter(this)
         recyclerView.adapter=adapter
         recyclerView.layoutManager= LinearLayoutManager(this)
 

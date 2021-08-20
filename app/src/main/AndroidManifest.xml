@@ -10,15 +10,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutineApplication">
-        <activity android:name=".activities.WorkOutStartActivity"></activity>
-        <activity android:name=".activities.ExerciseListActivity" />
-        <activity android:name=".activities.WorkOutListActivity"></activity>
-        <activity android:name=".activities.MainActivity">
+        <activity android:name=".activities.WorkOutStartActivity">
+
+        </activity>
+        <activity android:name=".activities.ExerciseListActivity" >
+
+        </activity>
+        <activity android:name=".activities.WorkOutListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".activities.MainActivity">
+
         </activity>
     </application>
 

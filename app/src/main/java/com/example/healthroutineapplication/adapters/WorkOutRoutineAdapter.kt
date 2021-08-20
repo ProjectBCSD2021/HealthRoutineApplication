@@ -1,7 +1,5 @@
 package com.example.healthroutineapplication.adapters
 
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +10,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.choiceRoutineList
-import com.example.healthroutineapplication.exerciseList
 import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.models.ExerciseRoutineData
-import com.example.healthroutineapplication.repositories.WorkOutListRepository
 
-class ExerciseRoutineAdapter(val goActivity: GoActivity) :
-    ListAdapter<ExerciseRoutineData, ExerciseRoutineAdapter.ExerciseRoutineViewHolder>(
+class WorkOutRoutineAdapter(val goActivity: GoActivity) :
+    ListAdapter<ExerciseRoutineData, WorkOutRoutineAdapter.ExerciseRoutineViewHolder>(
         ROUTINE_COMPARATOR
     ) {
 
