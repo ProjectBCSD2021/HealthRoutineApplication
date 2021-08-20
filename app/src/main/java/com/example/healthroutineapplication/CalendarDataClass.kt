@@ -8,7 +8,5 @@ import kotlin.collections.ArrayList
 @Entity
 data class CalendarDataClass(
     @PrimaryKey var date: String,
-    val exerciseName: ArrayList<String>,
-    val exerciseSet: ArrayList<Int>,
-    val exerciseWeight: ArrayList<Int>
+    val exerciseList: List<ExerciseRoutine>
 )
