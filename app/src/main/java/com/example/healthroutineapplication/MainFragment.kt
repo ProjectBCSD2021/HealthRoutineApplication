@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.healthroutineapplication.databinding.ActivityMainBinding
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
@@ -25,19 +22,19 @@ class MainFragment : Fragment() {
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         binding.mainRecyclerView.setHasFixedSize(true)
         val myAdapter = MyAdapter()
-        val mData = ArrayList<Exercise>()
+        val mData = ArrayList<Routines>()
 
         mData.apply {
-            add(Exercise("운동1",1,10))
-            add(Exercise("운동2",2,20))
-            add(Exercise("운동3",3,30))
-            add(Exercise("운동4",4,40))
-            add(Exercise("운동5",5,50))
-            add(Exercise("운동6",6,60))
-            add(Exercise("운동7",7,70))
-            add(Exercise("운동8",8,80))
-            add(Exercise("운동9",9,90))
-            add(Exercise("운동10",10,100))
+            add(Routines("운동1",1,10))
+            add(Routines("운동2",2,20))
+            add(Routines("운동3",3,30))
+            add(Routines("운동4",4,40))
+            add(Routines("운동5",5,50))
+            add(Routines("운동6",6,60))
+            add(Routines("운동7",7,70))
+            add(Routines("운동8",8,80))
+            add(Routines("운동9",9,90))
+            add(Routines("운동10",10,100))
         }
 
         myAdapter.replaceList(mData)
