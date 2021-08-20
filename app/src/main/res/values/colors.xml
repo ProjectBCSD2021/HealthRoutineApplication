@@ -7,7 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="pointColor">#444CFF</color>
     <color name="listColor">#e8e0ff</color>
     <color name="fontColor">#262529</color>
+    <color name="exercise_starting">#B5D0FA</color>
+    <color name="gray">#D1D1D1</color>
+    <color name="yellow">#FFDD69</color>
+    <color name="pointColor">#444CFF</color>
 </resources>

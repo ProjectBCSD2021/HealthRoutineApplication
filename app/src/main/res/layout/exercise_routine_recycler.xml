@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/exerciseName"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:paddingLeft="15dp"
+            android:text="운동이름"
+            android:textColor="@color/pointColor"
+            android:textSize="25sp"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/exerciseTimeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintEnd_toStartOf="@+id/restTimeText"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseName">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="10dp"
+                android:text="@string/routine_set"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/set"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="3"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/routine_weight"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:text="20kg"
+                android:textSize="15sp" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/exerciseTimeText"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:text="@string/routine_exercise_time"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_vertical"
+            app:layout_constraintRight_toLeftOf="@+id/exerciseTimeEdit"/>
+        <EditText
+            android:id="@+id/exerciseTimeEdit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="6"
+            android:inputType="number"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/secText1"/>
+        <TextView
+            android:id="@+id/secText1"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/sec"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+        <TextView
+            android:id="@+id/restTimeText"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="5"
+            android:text="@string/routine_rest_time"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            app:layout_constraintRight_toLeftOf="@+id/restTimeEdit"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseTimeText"/>
+        <EditText
+            android:id="@+id/restTimeEdit"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_weight="6"
+            android:inputType="number"
+            android:textSize="15sp"
+            app:layout_constraintRight_toLeftOf="@id/secText2"
+            app:layout_constraintTop_toBottomOf="@+id/exerciseTimeEdit"/>
+        <TextView
+            android:id="@+id/secText2"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/sec"
+            android:textSize="15sp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/secText1"
+            app:layout_constraintRight_toRightOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
