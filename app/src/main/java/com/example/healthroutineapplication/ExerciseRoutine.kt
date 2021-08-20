@@ -2,11 +2,12 @@ package com.example.healthroutineapplication
 
 import java.io.Serializable
 
-class ExerciseRoutine (val exercise : String, var setCount : Int, val weight : Int, var exerciseTimeSec : Int = 0, var restTimeSec : Int = 0) : Serializable{
-    fun setExerciseTime(exerciseTime : Int){
+class ExerciseRoutine(val exercise: String, var setCount: Int, val weight: Int, var exerciseTimeSec: Int = 0, var restTimeSec: Int = 0) : Serializable {
+    fun setExerciseTime(exerciseTime: Int) {
         exerciseTimeSec = exerciseTime
     }
-    fun setRestTime(restTime : Int){
+
+    fun setRestTime(restTime: Int) {
         restTimeSec = restTime
     }
 }
