@@ -9,13 +9,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthroutineapplication.ExerciseRoutineApp
 import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
-import com.example.healthroutineapplication.databinding.ActivityMainListBinding
+import com.example.healthroutineapplication.databinding.ActivityMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelFactory
 
 class MainListActivity : AppCompatActivity(),GoActivity {
-    lateinit var binding: ActivityMainListBinding
+    lateinit var binding: ActivityMainBinding
     private val exerciseRoutineViewModel:ExerciseRoutineViewModel by viewModels{
         ExerciseRoutineViewModelFactory((application as ExerciseRoutineApp).repository)
     }

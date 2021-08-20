@@ -7,12 +7,12 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.healthroutineapplication.databinding.ActivityMainBinding
+import com.example.healthroutineapplication.databinding.ActivityMainListBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainListActivity : AppCompatActivity() {
 
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: ActivityMainListBinding
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
