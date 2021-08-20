@@ -6,14 +6,8 @@ import java.util.*
 
 class CalendarDatabaseTypeConverters {
     @TypeConverter
-    fun fromStringList(value: List<String>?): String = Gson().toJson(value)
+    fun fromList(value: List<ExerciseRoutine>?): String = Gson().toJson(value)
 
     @TypeConverter
-    fun toStringList(value: String) = Gson().fromJson(value, Array<String>::class.java).toList()
-
-    @TypeConverter
-    fun fromIntList(value: List<Int>?): String = Gson().toJson(value)
-
-    @TypeConverter
-    fun toIntList(value: String) = Gson().fromJson(value, Array<Int>::class.java).toList()
+    fun toList(value: String) = Gson().fromJson(value, Array<ExerciseRoutine>::class.java).toList()
 }

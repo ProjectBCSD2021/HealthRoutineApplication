@@ -128,37 +128,13 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
     }
 
     fun saveCalendarData(database: CalendarDatabase, dataList: ArrayList<ExerciseRoutine>) {
-        val nameList = ArrayList<String>()
-        val setList = ArrayList<Int>()
-        val weightList = ArrayList<Int>()
         val today = SimpleDateFormat("yyyy-MM-dd").format(Date())
-        for (i in 0 until dataSize) {
-            nameList.add(dataList[i].exercise)
-            setList.add(dataList[i].setCount)
-            weightList.add(dataList[i].weight)
-        }
         val todayData = database.calendarDao().searchToday(today)
         if (todayData.isEmpty()) {
-            database.calendarDao().insert(
-                CalendarDataClass(
-                    today,
-                    nameList,
-                    setList,
-                    weightList
-                )
-            )
+            database.calendarDao().insert(CalendarDataClass(today, dataList))
         } else {
-            nameList.addAll(todayData[0].exerciseName)
-            setList.addAll(todayData[0].exerciseSet)
-            weightList.addAll(todayData[0].exerciseWeight)
-            database.calendarDao().update(
-                CalendarDataClass(
-                    today,
-                    nameList,
-                    setList,
-                    weightList
-                )
-            )
+            dataList.addAll(todayData[0].exerciseList)
+            database.calendarDao().update(CalendarDataClass(today, dataList))
         }
     }
 }
