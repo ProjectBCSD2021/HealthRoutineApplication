@@ -51,7 +51,7 @@ class ExerciseListActivity : AppCompatActivity(){
                 val routineName:String = routineNameEditText.text.toString()
                 val exerciseRoutineData = ExerciseRoutineData(null,routineName,exerciseList)
                 exerciseRoutineViewModel.insert(exerciseRoutineData)
-                startActivity(Intent(this,MainActivity::class.java))
+                startActivity(Intent(this,MainListActivity::class.java))
             }
             builder.setNeutralButton("돌아가기") { builder, which -> }
             builder.show()

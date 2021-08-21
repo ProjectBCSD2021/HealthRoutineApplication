@@ -49,7 +49,7 @@ class ExerciseListAdapter(val inflater: LayoutInflater) :
                     notifyDataSetChanged()
                 }
                 builder.setNegativeButton("삭제") { builder, which ->
-                    
+                    exerciseList.removeAt(position)
                     notifyDataSetChanged()
                 }
                 builder.setNeutralButton("돌아가기") { builder, which -> }

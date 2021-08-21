@@ -16,10 +16,10 @@ import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelFactory
 
-class MainFragment : Fragment(),GoActivity {
+class MainFragment(val intent: Intent) : Fragment(), GoActivity {
 
-    private lateinit var binding:FragmentMainBinding
-    private val exerciseRoutineViewModel : ExerciseRoutineViewModel by viewModels {
+    private lateinit var binding: FragmentMainBinding
+    private val exerciseRoutineViewModel: ExerciseRoutineViewModel by viewModels {
         ExerciseRoutineViewModelFactory((activity?.application as ExerciseRoutineApp).repository)
     }
 
@@ -27,23 +27,25 @@ class MainFragment : Fragment(),GoActivity {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         val recyclerView = binding.mainRecyclerView
         val adapter = WorkOutRoutineAdapter(this)
-        recyclerView.adapter=adapter
-        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
 
-        exerciseRoutineViewModel.routines.observe(MainListActivity()){
-            routines -> routines?.let { adapter.submitList(it) }
+        exerciseRoutineViewModel.routines.observe(viewLifecycleOwner) { routines ->
+            routines?.let { adapter.submitList(it) }
         }
-
         return binding.root
     }
 
-    override fun goActivity() {
-        startActivity(Intent(context, WorkOutStartActivity::class.java))
+    override fun goActivity(id: Long?, name: String?) {
+        intent.putExtra("putId", id)
+        intent.putExtra("putName", name)
+        startActivity(intent)
     }
 
 

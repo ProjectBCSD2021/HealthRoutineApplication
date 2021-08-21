@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity(),GoActivity {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
-        val recyclerView=binding.mainRecyclerview
+        val recyclerView=binding.mainRecyclerview1
         val adapter=WorkOutRoutineAdapter(this)
         recyclerView.adapter=adapter
         recyclerView.layoutManager= LinearLayoutManager(this)

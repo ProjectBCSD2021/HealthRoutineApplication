@@ -3,11 +3,11 @@ package com.example.healthroutineapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.healthroutineapplication.activities.WorkOutListActivity
 import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.databinding.ActivityMainListBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -21,7 +21,7 @@ class MainListActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.list -> {
-                    replaceFragment(MainFragment())
+                    replaceFragment(MainFragment(Intent(this, WorkOutStartActivity::class.java)))
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -42,12 +42,12 @@ class MainListActivity : AppCompatActivity() {
         val actionBar: ActionBar = supportActionBar!!
         actionBar.setDisplayShowTitleEnabled(false)
 
-        replaceFragment(MainFragment())
+        replaceFragment(MainFragment(Intent(this,WorkOutStartActivity::class.java)))
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         binding.shoppingButton.setOnClickListener {
-            startActivity(Intent(this,WorkOutStartActivity::class.java))
+            startActivity(Intent(this,WorkOutListActivity::class.java))
         }
     }
 
