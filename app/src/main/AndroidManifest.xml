@@ -13,23 +13,28 @@
         <activity android:name=".activities.WorkOutStartActivity">
 
         </activity>
-        <activity android:name=".activities.MainActivity">
 
-        </activity>
         <activity android:name=".activities.ExerciseListActivity" >
 
         </activity>
+
+        <activity android:name=".activities.MainActivity">
+
+        </activity>
+
         <activity android:name=".activities.WorkOutListActivity">
+
+        </activity>
+        <activity android:name=".ExerciseStartingActivity"/>
+        <activity android:name=".ExerciseRoutineActivity">
+
+        </activity>
+        <activity android:name=".MainListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".ExerciseStartingActivity"/>
-        <activity android:name=".ExerciseRoutineActivity"/>
-        <activity android:name=".MainListActivity">
-
         </activity>
 
 

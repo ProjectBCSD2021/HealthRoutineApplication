@@ -1,13 +1,16 @@
 package com.example.healthroutineapplication
 
+import android.content.DialogInterface
+import android.content.Intent
 import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.example.healthroutineapplication.databinding.ActivityExerciseStartingBinding
+import com.example.healthroutineapplication.models.ExerciseData
 
 class ExerciseStartingActivity : AppCompatActivity() {
     lateinit var binding: ActivityExerciseStartingBinding
@@ -18,8 +21,15 @@ class ExerciseStartingActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_exercise_starting)
         binding.recyclerView.adapter = adapter
         val database = CalendarDatabase.getInstance(applicationContext)
-        val dataList = intent.getSerializableExtra("exerciseStarting") as ArrayList<ExerciseRoutine>
-        //Intent를 이용해 ArrayList<ExerciseRoutine>를 받아옴
+        val dataList = intent.getSerializableExtra("exerciseStarting") as ArrayList<ExerciseData>
+        //Intent를 이용해 ArrayList<ExerciseData>를 받아옴
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.end_exercise))
+            .setMessage(getString(R.string.end_routine))
+        builder.setPositiveButton("확인", DialogInterface.OnClickListener() { dialog, which ->
+            startActivity(Intent(this, MainListActivity::class.java))
+            finish()
+        })
         viewModel = ViewModelProvider(this, ExerciseStartingViewModelFactory(dataList)).get(
             ExerciseStartingViewModel::class.java
         )
@@ -48,16 +58,21 @@ class ExerciseStartingActivity : AppCompatActivity() {
             }
         })
         viewModel.isEnd.observe(this, {
-            if (it) database?.let { database -> viewModel.saveCalendarData(database, dataList) }
+            if (it) {
+                database?.let { database -> viewModel.saveCalendarData(database, dataList) }
+                builder.create().show()
+            }
         })
         binding.startButton.setOnClickListener {
-            viewModel.startTimer()
+            if (viewModel.isEnd.value == true) builder.create().show()
+            else viewModel.startTimer()
         }
         binding.pauseButton.setOnClickListener {
             viewModel.stopTimer()
         }
         binding.nextButton.setOnClickListener {
-            if (!viewModel.next()) Toast.makeText(this, "운동이 끝났습니다.", Toast.LENGTH_SHORT).show()
+            if (viewModel.isEnd.value == true) builder.create().show()
+            else viewModel.next()
         }
     }
 }
