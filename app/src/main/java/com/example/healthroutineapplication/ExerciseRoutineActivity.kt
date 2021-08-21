@@ -15,15 +15,10 @@ class ExerciseRoutineActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_exercise_routine)
         binding.recyclerView.adapter = adapter
-        //val routineTitle = intent.getStringExtra("exerciseRoutineTitle")
+        val routineTitle = intent.getStringExtra("exerciseRoutineTitle")
         //루틴의 제목 intent로 받아옴
-        //val dataList = intent.getSerializableExtra("exerciseRoutine") as ArrayList<ExerciseData>
+        val dataList = intent.getSerializableExtra("exerciseRoutine") as ArrayList<ExerciseData>
         //루틴의 운동들 ArrayList<ExerciseData> 받아옴
-        val routineTitle = "루틴 이름"
-        var dataList = ArrayList<ExerciseData>()
-        dataList.add(ExerciseData("운동1","",1,10))
-        dataList.add(ExerciseData("운동2","",2,10))
-        dataList.add(ExerciseData("운동3","",1,20))
         binding.exerciseRoutineTitle.text = routineTitle
         adapter.setData(dataList)
         binding.exerciseStartButton.setOnClickListener {

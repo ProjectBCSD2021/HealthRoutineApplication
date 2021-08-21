@@ -1,5 +1,6 @@
 package com.example.healthroutineapplication.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -10,6 +11,7 @@ import com.example.healthroutineapplication.adapters.ExerciseListAdapter
 import com.example.healthroutineapplication.adapters.WorkOutStartAdapter
 import com.example.healthroutineapplication.databinding.ActivityWorkOutListBinding
 import com.example.healthroutineapplication.databinding.ActivityWorkOutStartBinding
+import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.models.ExerciseRoutineData
 import com.example.healthroutineapplication.repositories.WorkOutListRepository
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
@@ -44,6 +46,13 @@ class WorkOutStartActivity : AppCompatActivity() {
         binding.workOutStartBtn.setOnClickListener {
             exerciseRoutineViewModel.updateRoutine(ExerciseRoutineData(getId,getName,
                 choiceRoutineList))
+            intent = Intent(this, ExerciseRoutineActivity::class.java)
+            intent.putExtra("exerciseRoutineTitle", getName)
+            val exerciseList = ArrayList<ExerciseData>()
+            choiceRoutineList?.let { it1 -> exerciseList.addAll(it1) }
+            intent.putExtra("exerciseRoutine", exerciseList)
+            startActivity(intent)
+            finish()
         }
 
     }
