@@ -3,6 +3,9 @@ package com.example.healthroutineapplication
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -65,7 +68,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
                                 _timerEnable.postValue(false)
                                 min = 0
                                 sec = 0
-                                _isEnd.postValue(false)
+                                _isEnd.postValue(true)
                             }
                         }
                         _exerciseList.postValue(listItems)
@@ -81,6 +84,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
     }
 
     fun next(): Boolean {
+        if(_isEnd.value == true) return true
         stopTimer()
         _timerEnable.value = false
         if (_resting.value == true) {
@@ -129,12 +133,14 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
 
     fun saveCalendarData(database: CalendarDatabase, dataList: ArrayList<ExerciseRoutine>) {
         val today = SimpleDateFormat("yyyy-MM-dd").format(Date())
-        val todayData = database.calendarDao().searchToday(today)
-        if (todayData.isEmpty()) {
-            database.calendarDao().insert(CalendarDataClass(today, dataList))
-        } else {
-            dataList.addAll(todayData[0].exerciseList)
-            database.calendarDao().update(CalendarDataClass(today, dataList))
+        CoroutineScope(Dispatchers.IO).launch {
+            val todayData = database.calendarDao().searchToday(today)
+            if (todayData.isEmpty()) {
+                database.calendarDao().insert(CalendarDataClass(today, dataList))
+            } else {
+                dataList.addAll(todayData[0].exerciseList)
+                database.calendarDao().update(CalendarDataClass(today, dataList))
+            }
         }
     }
 }

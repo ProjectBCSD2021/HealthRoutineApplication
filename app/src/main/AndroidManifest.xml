@@ -26,13 +26,15 @@
 
         </activity>
         <activity android:name=".ExerciseStartingActivity"/>
-        <activity android:name=".ExerciseRoutineActivity"/>
-        <activity android:name=".MainListActivity">
+        <activity android:name=".ExerciseRoutineActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".MainListActivity">
+
         </activity>
 
 
