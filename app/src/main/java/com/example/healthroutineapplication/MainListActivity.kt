@@ -1,5 +1,6 @@
 package com.example.healthroutineapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -7,12 +8,14 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.databinding.ActivityMainListBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainListActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainListBinding
+
 
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -44,7 +47,7 @@ class MainListActivity : AppCompatActivity() {
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         binding.shoppingButton.setOnClickListener {
-            Toast.makeText(this, "추가하기", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this,WorkOutStartActivity::class.java))
         }
     }
 

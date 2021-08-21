@@ -1,17 +1,27 @@
 package com.example.healthroutineapplication
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.healthroutineapplication.activities.WorkOutStartActivity
+import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
+import com.example.healthroutineapplication.interfaces.GoActivity
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelFactory
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(),GoActivity {
 
     private lateinit var binding:FragmentMainBinding
+    private val exerciseRoutineViewModel : ExerciseRoutineViewModel by viewModels {
+        ExerciseRoutineViewModelFactory((activity?.application as ExerciseRoutineApp).repository)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,28 +29,21 @@ class MainFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_main,container,false)
 
-        binding.mainRecyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
-        binding.mainRecyclerView.setHasFixedSize(true)
-        val myAdapter = MyAdapter()
-        val mData = ArrayList<Routines>()
+        val recyclerView = binding.mainRecyclerView
+        val adapter = WorkOutRoutineAdapter(this)
+        recyclerView.adapter=adapter
+        recyclerView.layoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
+        recyclerView.setHasFixedSize(true)
 
-        mData.apply {
-            add(Routines("운동1",1,10))
-            add(Routines("운동2",2,20))
-            add(Routines("운동3",3,30))
-            add(Routines("운동4",4,40))
-            add(Routines("운동5",5,50))
-            add(Routines("운동6",6,60))
-            add(Routines("운동7",7,70))
-            add(Routines("운동8",8,80))
-            add(Routines("운동9",9,90))
-            add(Routines("운동10",10,100))
+        exerciseRoutineViewModel.routines.observe(MainListActivity()){
+            routines -> routines?.let { adapter.submitList(it) }
         }
 
-        myAdapter.replaceList(mData)
-
-        binding.mainRecyclerView.adapter = myAdapter
         return binding.root
+    }
+
+    override fun goActivity() {
+        startActivity(Intent(context, WorkOutStartActivity::class.java))
     }
 
 
