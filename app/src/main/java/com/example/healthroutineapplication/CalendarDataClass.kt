@@ -2,11 +2,10 @@ package com.example.healthroutineapplication
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
-import kotlin.collections.ArrayList
+import com.example.healthroutineapplication.models.ExerciseData
 
 @Entity
 data class CalendarDataClass(
     @PrimaryKey var date: String,
-    val exerciseList: List<ExerciseRoutine>
+    val exerciseList: List<ExerciseData>
 )

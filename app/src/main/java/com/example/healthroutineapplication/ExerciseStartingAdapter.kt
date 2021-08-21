@@ -2,16 +2,15 @@ package com.example.healthroutineapplication
 
 import android.content.Context
 import android.graphics.Typeface
-import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.databinding.ExerciseStartRecyclerBinding
+import com.example.healthroutineapplication.models.ExerciseData
 
 class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapter<ExerciseStartingAdapter.ViewHolder>() {
-    private var datas = mutableListOf<ExerciseRoutine>()
+    private var datas = mutableListOf<ExerciseData>()
     var highlightPosition = -1
     override fun getItemCount(): Int = datas.size
 
@@ -32,16 +31,16 @@ class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapt
     }
 
     inner class ViewHolder(val binding: ExerciseStartRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ExerciseRoutine) {
+        fun bind(item: ExerciseData) {
             binding.exercise.text = item.exercise
-            binding.set.text = item.setCount.toString()
-            binding.exerciseTime.text = item.exerciseTimeSec.toString() + "초"
-            binding.restTime.text = item.restTimeSec.toString() + "초"
+            binding.set.text = item.set.toString()
+            binding.exerciseTime.text = item.exerciseTime.toString() + "초"
+            binding.restTime.text = item.restTime.toString() + "초"
             binding.weight.text = item.weight.toString() + "kg"
         }
     }
 
-    fun setData(dataList: ArrayList<ExerciseRoutine>) {
+    fun setData(dataList: ArrayList<ExerciseData>) {
         datas = dataList
         notifyDataSetChanged()
     }

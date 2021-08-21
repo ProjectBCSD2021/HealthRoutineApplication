@@ -3,6 +3,7 @@ package com.example.healthroutineapplication
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.healthroutineapplication.models.ExerciseData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,15 +12,15 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
 
-class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewModel() {
+class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel() {
     private val _time = MutableLiveData<String>()
-    private val _exerciseList = MutableLiveData<ArrayList<ExerciseRoutine>>()
+    private val _exerciseList = MutableLiveData<ArrayList<ExerciseData>>()
     private val _resting = MutableLiveData<Boolean>() //true면 쉬는시간 false면 운동시간
     private val _timerEnable = MutableLiveData<Boolean>() //true면 타이머가동중
     private val _isEnd = MutableLiveData<Boolean>()//운동이 끝낫는지 확인
     val time: LiveData<String>
         get() = _time
-    val exerciseList: LiveData<ArrayList<ExerciseRoutine>>
+    val exerciseList: LiveData<ArrayList<ExerciseData>>
         get() = _exerciseList
     val resting: LiveData<Boolean>
         get() = _resting
@@ -27,7 +28,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
         get() = _timerEnable
     val isEnd: LiveData<Boolean>
         get() = _isEnd
-    private var listItems = ArrayList<ExerciseRoutine>()
+    private var listItems = ArrayList<ExerciseData>()
     private var timer: Timer? = null
     private var min = 0
     private var sec = 0
@@ -37,7 +38,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
     init {
         listItems = dataList
         _exerciseList.value = listItems
-        secToMinSec(listItems[nowIndex].exerciseTimeSec)
+        secToMinSec(listItems[nowIndex].exerciseTime)
         _time.value = minSecToTime(min, sec)
         dataSize = listItems.size
         _resting.value = false
@@ -59,9 +60,9 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
                         endRestTime()
                     } else { // 운동시간이 끝난경우
                         _resting.postValue(true)
-                        secToMinSec(listItems[nowIndex].restTimeSec)
-                        listItems[nowIndex].setCount--
-                        if (listItems[nowIndex].setCount == 0) {//마지막 세트가 끝나면
+                        secToMinSec(listItems[nowIndex].restTime)
+                        listItems[nowIndex].set--
+                        if (listItems[nowIndex].set == 0) {//마지막 세트가 끝나면
                             nowIndex++//다음 운동
                             if (nowIndex == dataSize) { //마지막운동이 끝나면
                                 stopTimer()
@@ -101,13 +102,13 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
     }
 
     private fun endRestTime() {
-        secToMinSec(listItems[nowIndex].exerciseTimeSec)
+        secToMinSec(listItems[nowIndex].exerciseTime)
     }
 
     private fun endExerciseTime() {
-        secToMinSec(listItems[nowIndex].restTimeSec)
-        listItems[nowIndex].setCount--
-        if (listItems[nowIndex].setCount == 0) {//마지막 세트가 끝나면
+        secToMinSec(listItems[nowIndex].restTime)
+        listItems[nowIndex].set--
+        if (listItems[nowIndex].set == 0) {//마지막 세트가 끝나면
             nowIndex++//다음 운동
             if (nowIndex == dataSize) { //마지막운동이 끝나면
                 stopTimer()
@@ -131,7 +132,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseRoutine>) : ViewMode
         sec = dataSec % 60
     }
 
-    fun saveCalendarData(database: CalendarDatabase, dataList: ArrayList<ExerciseRoutine>) {
+    fun saveCalendarData(database: CalendarDatabase, dataList: ArrayList<ExerciseData>) {
         val today = SimpleDateFormat("yyyy-MM-dd").format(Date())
         CoroutineScope(Dispatchers.IO).launch {
             val todayData = database.calendarDao().searchToday(today)
