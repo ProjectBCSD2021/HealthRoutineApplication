@@ -1,5 +1,6 @@
 package com.example.healthroutineapplication.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +26,7 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity) :
 
             root.setOnClickListener {
                 choiceRoutineList = current.exerciseRoutine
-                goActivity.goActivity()
+                goActivity.goActivity(current.id,current.routineName)
             }
         }
     }

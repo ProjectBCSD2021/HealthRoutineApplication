@@ -10,22 +10,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.healthroutineapplication.ExerciseStartingViewModel
-import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.R
-import com.example.healthroutineapplication.choiceRoutineList
 import com.example.healthroutineapplication.exerciseList
-import com.example.healthroutineapplication.models.ExerciseRoutineData
-import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
+import com.example.healthroutineapplication.models.ExerciseData
 
-class ExerciseListAdapter(val inflater: LayoutInflater) :
-    ListAdapter<ExerciseData, ExerciseListAdapter.ExerciseListViewHolder>(EXERCISELIST_COMPARATOR) {
+class WorkOutStartAdapter (val inflater: LayoutInflater) :
+    ListAdapter<ExerciseData, WorkOutStartAdapter.WorkOutStartViewHolder>(WORKOUTSTART_COMPARATOR) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseListViewHolder {
-        return ExerciseListViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkOutStartViewHolder {
+        return WorkOutStartViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: ExerciseListViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WorkOutStartViewHolder, position: Int) {
         val current = getItem(position)
         with(holder) {
 
@@ -48,8 +44,8 @@ class ExerciseListAdapter(val inflater: LayoutInflater) :
                     current.weight = Integer.parseInt(setWeight.text.toString())
                     notifyDataSetChanged()
                 }
-                builder.setNegativeButton("삭제") { builder, which ->
-                    
+                builder.setNegativeButton("삭제"){builder, which ->
+
                     notifyDataSetChanged()
                 }
                 builder.setNeutralButton("돌아가기") { builder, which -> }
@@ -59,7 +55,7 @@ class ExerciseListAdapter(val inflater: LayoutInflater) :
         }
     }
 
-    class ExerciseListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class WorkOutStartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val exerciseName: TextView = itemView.findViewById(R.id.frame_exercise_name)
         private val exerciseMethod: TextView = itemView.findViewById(R.id.frame_exercise_method)
         private val exerciseSet: TextView = itemView.findViewById(R.id.frame_exercise_set)
@@ -79,16 +75,16 @@ class ExerciseListAdapter(val inflater: LayoutInflater) :
         }
 
         companion object {
-            fun create(parent: ViewGroup): ExerciseListViewHolder {
+            fun create(parent: ViewGroup): WorkOutStartViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.exercise_list_frame, parent, false)
-                return ExerciseListViewHolder(view)
+                return WorkOutStartViewHolder(view)
             }
         }
     }
 
     companion object {
-        private val EXERCISELIST_COMPARATOR = object : DiffUtil.ItemCallback<ExerciseData>() {
+        private val WORKOUTSTART_COMPARATOR = object : DiffUtil.ItemCallback<ExerciseData>() {
             override fun areItemsTheSame(oldItem: ExerciseData, newItem: ExerciseData): Boolean {
                 return oldItem === newItem
             }
@@ -96,8 +92,6 @@ class ExerciseListAdapter(val inflater: LayoutInflater) :
             override fun areContentsTheSame(oldItem: ExerciseData, newItem: ExerciseData): Boolean {
                 return oldItem.exercise == newItem.exercise
             }
-
-
         }
     }
 

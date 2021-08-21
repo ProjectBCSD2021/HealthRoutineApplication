@@ -2,6 +2,7 @@ package com.example.healthroutineapplication.repositories
 
 import androidx.annotation.WorkerThread
 import com.example.healthroutineapplication.interfaces.ExerciseRoutineDao
+import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.models.ExerciseRoutineData
 import kotlinx.coroutines.flow.Flow
 
@@ -12,6 +13,11 @@ class ExerciseRoutineRepository (private val exerciseRoutineDao: ExerciseRoutine
     @WorkerThread
     suspend fun insert(exerciseRoutineData: ExerciseRoutineData){
         exerciseRoutineDao.insert(exerciseRoutineData)
+    }
+
+    @WorkerThread
+    suspend fun updateRoutine(exerciseRoutineData: ExerciseRoutineData){
+        exerciseRoutineDao.updateRoutine(exerciseRoutineData)
     }
 
     @WorkerThread

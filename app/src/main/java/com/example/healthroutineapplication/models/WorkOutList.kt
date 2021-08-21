@@ -189,5 +189,5 @@ fun getAbsExerciseList(): List<Exercise> {
 
 val exerciseList = mutableListOf<ExerciseData>()
 
-var choiceRoutineList:List<ExerciseData>? = listOf<ExerciseData>()
+var choiceRoutineList:List<ExerciseData>? = mutableListOf<ExerciseData>()
 
