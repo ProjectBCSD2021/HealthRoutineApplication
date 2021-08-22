@@ -1,5 +1,6 @@
 package com.example.healthroutineapplication
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Layout
 import androidx.fragment.app.Fragment
@@ -15,11 +16,25 @@ import java.util.*
 class CalendarFragment : Fragment() {
 
     lateinit var binding : FragmentCalendarBinding
+    private var exerciseDb : CalendarDatabase? = null
+    private var exerciseList = listOf<CalendarDataClass>()
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        exerciseDb = CalendarDatabase.getInstance(context)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val r = Runnable {
+            exerciseList=exerciseDb?.calendarDao()?.getAll()!!
+        }
+
+        val thread = Thread(r)
+        thread.start()
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calendar,container,false)
 
@@ -42,7 +57,8 @@ class CalendarFragment : Fragment() {
             .setCalendarDisplayMode(CalendarMode.MONTHS)
             .commit()
 
-        binding.materialCalendar.addDecorators(sundayDecorator,saturdayDecorator,todayDecorator)
+        binding.materialCalendar.addDecorators(sundayDecorator,saturdayDecorator,todayDecorator,ExerciseDayDecorator(exerciseList))
+
         return binding.root
     }
 }
