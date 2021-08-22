@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.exerciseList
 import com.example.healthroutineapplication.models.ExerciseData
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 
 class WorkOutStartAdapter (val inflater: LayoutInflater) :
     ListAdapter<ExerciseData, WorkOutStartAdapter.WorkOutStartViewHolder>(WORKOUTSTART_COMPARATOR) {
@@ -42,10 +43,6 @@ class WorkOutStartAdapter (val inflater: LayoutInflater) :
                     val setSet = view.findViewById<EditText>(R.id.set_setting_edit)
                     current.set = Integer.parseInt(setSet.text.toString())
                     current.weight = Integer.parseInt(setWeight.text.toString())
-                    notifyDataSetChanged()
-                }
-                builder.setNegativeButton("삭제"){builder, which ->
-
                     notifyDataSetChanged()
                 }
                 builder.setNeutralButton("돌아가기") { builder, which -> }

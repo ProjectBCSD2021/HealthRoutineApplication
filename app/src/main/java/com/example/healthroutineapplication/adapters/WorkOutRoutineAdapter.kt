@@ -14,8 +14,9 @@ import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.choiceRoutineList
 import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.models.ExerciseRoutineData
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 
-class WorkOutRoutineAdapter(val goActivity: GoActivity) :
+class WorkOutRoutineAdapter(val goActivity: GoActivity,val viewModel:ExerciseRoutineViewModel) :
     ListAdapter<ExerciseRoutineData, WorkOutRoutineAdapter.ExerciseRoutineViewHolder>(
         ROUTINE_COMPARATOR
     ) {
@@ -29,6 +30,13 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity) :
                 choiceRoutineList = current.exerciseRoutine
                 goActivity.goActivity(current.id, current.routineName)
             }
+
+            root.setOnLongClickListener(object :View.OnLongClickListener{
+                override fun onLongClick(v: View?): Boolean {
+                    viewModel.delete(current)
+                    return true
+                }
+            })
         }
     }
 
