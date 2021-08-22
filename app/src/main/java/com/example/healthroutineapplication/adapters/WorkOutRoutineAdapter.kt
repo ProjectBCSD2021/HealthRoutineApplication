@@ -4,8 +4,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -21,12 +21,12 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity) :
 
     override fun onBindViewHolder(holder: ExerciseRoutineViewHolder, position: Int) {
         val current = getItem(position)
-        with(holder){
-            bind(current.routineName)
+        with(holder) {
+            bind(current.routineName, position + 1)
 
             root.setOnClickListener {
                 choiceRoutineList = current.exerciseRoutine
-                goActivity.goActivity(current.id,current.routineName)
+                goActivity.goActivity(current.id, current.routineName)
             }
         }
     }
@@ -36,17 +36,19 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity) :
     }
 
     class ExerciseRoutineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val routineName:TextView = itemView.findViewById(R.id.work_out_list_frame_text_view)
-        val root:FrameLayout = itemView.findViewById(R.id.work_out_list_frame_layout)
+        private val routineName: TextView = itemView.findViewById(R.id.routineTitle)
+        private val routineNumber: TextView = itemView.findViewById(R.id.routineNumber)
+        val root: ConstraintLayout = itemView.findViewById(R.id.work_out_list_constraint_layout)
 
-        fun bind(in_routineName:String?) {
+        fun bind(in_routineName: String?, in_routineNumber: Int) {
             routineName.text = in_routineName
+            routineNumber.text = in_routineNumber.toString()
         }
 
         companion object {
             fun create(parent: ViewGroup): ExerciseRoutineViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.work_out_list_frame, parent, false)
+                    .inflate(R.layout.main_list_item, parent, false)
                 return ExerciseRoutineViewHolder(view)
             }
         }
