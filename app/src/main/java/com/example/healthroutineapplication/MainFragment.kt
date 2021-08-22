@@ -30,7 +30,7 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
         val recyclerView = binding.mainRecyclerView
-        val adapter = WorkOutRoutineAdapter(this)
+        val adapter = WorkOutRoutineAdapter(this,exerciseRoutineViewModel)
         recyclerView.adapter = adapter
         recyclerView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

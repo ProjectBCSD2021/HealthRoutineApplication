@@ -3,19 +3,32 @@ package com.example.healthroutineapplication.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
+import com.example.healthroutineapplication.ExerciseRoutineApp
 import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.adapters.WorkOutListPagerAdapter
 import com.example.healthroutineapplication.databinding.ActivityWorkOutListBinding
+import com.example.healthroutineapplication.fragments.ExerciseListFragment
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
+import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelFactory
 import com.google.android.material.tabs.TabLayout
 
 class WorkOutListActivity : AppCompatActivity() {
     lateinit var binding: ActivityWorkOutListBinding
+    private val exerciseRoutineViewModel: ExerciseRoutineViewModel by viewModels {
+        ExerciseRoutineViewModelFactory((application as ExerciseRoutineApp).repository)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_work_out_list)
 
+
+
         with(binding){
+
+            workOutListContainerView.visibility = View.GONE
 
             workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("가슴"))
             workOutListTabLayout.addTab(workOutListTabLayout.newTab().setText("등"))
@@ -46,8 +59,10 @@ class WorkOutListActivity : AppCompatActivity() {
             workOutListViewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(workOutListTabLayout))
 
             workOutListBtn.setOnClickListener {
-                val intent = Intent(this@WorkOutListActivity, ExerciseListActivity::class.java )
-                startActivity(intent)
+                val transaction = supportFragmentManager.beginTransaction()
+                transaction.add(R.id.work_out_list_container_view,ExerciseListFragment(exerciseRoutineViewModel,workOutListContainerView))
+                workOutListContainerView.visibility = View.VISIBLE
+                transaction.commit()
             }
         }
 

@@ -10,6 +10,12 @@
         android:orientation="vertical"
         >
 
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/work_out_list_container_view"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/work_out_list_tab_layout"
             android:layout_width="match_parent"
@@ -18,11 +24,12 @@
             />
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/work_out_list_view_pager"
+            android:id="@+id/workOutListViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             >
+
         </androidx.viewpager.widget.ViewPager>
 
         <Button

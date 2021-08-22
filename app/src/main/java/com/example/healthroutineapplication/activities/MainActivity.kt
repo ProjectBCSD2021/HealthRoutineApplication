@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(),GoActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         val recyclerView=binding.mainRecyclerview1
-        val adapter=WorkOutRoutineAdapter(this)
+        val adapter=WorkOutRoutineAdapter(this,exerciseRoutineViewModel)
         recyclerView.adapter=adapter
         recyclerView.layoutManager= LinearLayoutManager(this)
 
