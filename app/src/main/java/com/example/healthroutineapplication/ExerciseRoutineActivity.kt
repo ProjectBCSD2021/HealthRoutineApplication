@@ -26,6 +26,7 @@ class ExerciseRoutineActivity : AppCompatActivity() {
                 val intent = Intent(this, ExerciseStartingActivity::class.java)
                 intent.putExtra("exerciseStarting", adapter.getData())
                 startActivity(intent)
+                finish()
             } else {
                 val toast = Toast.makeText(this, "운동시간과 쉬는시간을 제대로 입력해주세요.", Toast.LENGTH_SHORT)
                 toast.show()
