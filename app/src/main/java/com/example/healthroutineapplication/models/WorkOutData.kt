@@ -5,3 +5,8 @@ data class Exercise(
     val name:String,
     val test:Array<String>
 )
+
+data class Proverb(
+    val proverb: String,
+    val person:String
+)
