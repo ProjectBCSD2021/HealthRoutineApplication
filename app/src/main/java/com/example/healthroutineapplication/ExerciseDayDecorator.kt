@@ -1,7 +1,5 @@
 package com.example.healthroutineapplication
 
-import android.content.Context
-import android.graphics.drawable.Drawable
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.DayViewDecorator
 import com.prolificinteractive.materialcalendarview.DayViewFacade
