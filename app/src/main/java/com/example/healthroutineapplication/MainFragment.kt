@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
@@ -19,6 +18,7 @@ import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModelF
 class MainFragment(val intent: Intent) : Fragment(), GoActivity {
 
     private lateinit var binding: FragmentMainBinding
+
     private val exerciseRoutineViewModel: ExerciseRoutineViewModel by viewModels {
         ExerciseRoutineViewModelFactory((activity?.application as ExerciseRoutineApp).repository)
     }

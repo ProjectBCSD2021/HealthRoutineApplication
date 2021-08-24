@@ -12,11 +12,11 @@ import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.databinding.ActivityMainListBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
+
 class MainListActivity : AppCompatActivity() {
-
+    
     lateinit var binding: ActivityMainListBinding
-
-
+    
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -36,13 +36,17 @@ class MainListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_list)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_list)
+        val intent = Intent(this,WorkOutStartActivity::class.java)
+
         val toolbar: Toolbar = binding.toolbar
         setSupportActionBar(toolbar)
         val actionBar: ActionBar = supportActionBar!!
         actionBar.setDisplayShowTitleEnabled(false)
 
-        replaceFragment(MainFragment(Intent(this,WorkOutStartActivity::class.java)))
+        replaceFragment(MainFragment(intent))
+
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
@@ -51,12 +55,12 @@ class MainListActivity : AppCompatActivity() {
         }
     }
 
-
     private fun replaceFragment(fragment: Fragment) {
         val fragmentTransaction = supportFragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.mainLayout, fragment)
         fragmentTransaction.commit()
     }
+
 }
 
 
