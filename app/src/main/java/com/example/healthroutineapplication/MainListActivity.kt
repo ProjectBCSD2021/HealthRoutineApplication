@@ -3,6 +3,7 @@ package com.example.healthroutineapplication
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
@@ -16,7 +17,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainListActivity : AppCompatActivity() {
     
     lateinit var binding: ActivityMainListBinding
-    
+    lateinit var calendarDatabase : CalendarDatabase
+    private var exerciseList = listOf<CalendarDataClass>()
+
     private val mOnNavigationItemSelectedListener =
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -26,7 +29,7 @@ class MainListActivity : AppCompatActivity() {
                 }
 
                 R.id.calendar -> {
-                    replaceFragment(CalendarFragment())
+                    replaceFragment(CalendarFragment(exerciseList))
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -36,6 +39,8 @@ class MainListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_list)
+
+        Log.d("Activity","onCreate")
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main_list)
         val intent = Intent(this,WorkOutStartActivity::class.java)
@@ -47,6 +52,13 @@ class MainListActivity : AppCompatActivity() {
 
         replaceFragment(MainFragment(intent))
 
+        calendarDatabase= CalendarDatabase.getInstance(application)!!
+
+        val r = Runnable {
+            exerciseList=calendarDatabase.calendarDao().getAll()
+        }
+        val thread = Thread(r)
+        thread.start()
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
