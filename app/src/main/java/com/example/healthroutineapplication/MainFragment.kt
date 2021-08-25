@@ -1,6 +1,7 @@
 package com.example.healthroutineapplication
 
 import android.content.Intent
+import android.graphics.*
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,8 +35,8 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
 
-        with(binding){
-            with(mainRecyclerView){
+        with(binding) {
+            with(mainRecyclerView) {
                 adapter = workOutAdapter
                 layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
                 mainRecyclerView.setHasFixedSize(true)
@@ -49,8 +50,8 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
 
         //drag and drop
         val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-            ItemTouchHelper.START,ItemTouchHelper.LEFT
-        ){
+            ItemTouchHelper.START, ItemTouchHelper.LEFT
+        ) {
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
@@ -63,8 +64,57 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
                 exerciseRoutineViewModel.delete(workOutAdapter.removeData(viewHolder.layoutPosition))
             }
 
+            //스와이프 시 색 나오게 함
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val icon: Bitmap
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                    val itemView = viewHolder.itemView
+                    val height = (itemView.bottom - itemView.top).toFloat()
+                    val width = height / 4
+                    val paint = Paint()
+                    if (dX < 0) {
+                        paint.color = Color.parseColor("#ff0000")
+                        val background = RectF(
+                            itemView.right.toFloat() + dX,
+                            itemView.top.toFloat(),
+                            itemView.right.toFloat(),
+                            itemView.bottom.toFloat()
+                        )
+                        c.drawRect(background, paint)
+
+                        //스와이프 시 아이콘도 나오게 함, img_Asset 사용
+                        icon = BitmapFactory.decodeResource(resources, R.drawable.ic_stat_name)
+                        val iconDst = RectF(
+                            itemView.right.toFloat() -3*width,
+                            itemView.top.toFloat() + width,
+                            itemView.right.toFloat() -width,
+                            itemView.bottom.toFloat() - width
+                        )
+                        c.drawBitmap(icon,null,iconDst,null)
+                    }
+                }
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+            }
         }
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.mainRecyclerView)
+
+
 
         return binding.root
     }
@@ -74,6 +124,5 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         intent.putExtra("putName", name)
         startActivity(intent)
     }
-
 
 }
