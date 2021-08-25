@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
@@ -23,22 +25,47 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         ExerciseRoutineViewModelFactory((activity?.application as ExerciseRoutineApp).repository)
     }
 
+    private val workOutAdapter = WorkOutRoutineAdapter(this)
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-        val recyclerView = binding.mainRecyclerView
-        val adapter = WorkOutRoutineAdapter(this,exerciseRoutineViewModel)
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.setHasFixedSize(true)
+
+        with(binding){
+            with(mainRecyclerView){
+                adapter = workOutAdapter
+                layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                mainRecyclerView.setHasFixedSize(true)
+            }
+        }
+
 
         exerciseRoutineViewModel.routines.observe(viewLifecycleOwner) { routines ->
-            routines?.let { adapter.submitList(it) }
+            workOutAdapter.setData(routines)
         }
+
+        //drag and drop
+        val itemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.START,ItemTouchHelper.LEFT
+        ){
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return true
+            }
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                exerciseRoutineViewModel.delete(workOutAdapter.removeData(viewHolder.layoutPosition))
+            }
+
+        }
+        ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.mainRecyclerView)
+
         return binding.root
     }
 
