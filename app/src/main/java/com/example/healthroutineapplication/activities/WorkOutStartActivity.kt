@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -38,7 +39,7 @@ class WorkOutStartActivity : AppCompatActivity() {
 
         val inflater = layoutInflater
         val recyclerView = binding.workOutStartRecyclerView
-        val adapter = WorkOutStartAdapter(inflater)
+        val adapter = WorkOutStartAdapter(inflater,this)
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -48,22 +49,27 @@ class WorkOutStartActivity : AppCompatActivity() {
         }
 
         binding.workOutStartBtn.setOnClickListener {
-            showProverb()
-            Handler().postDelayed({
-                exerciseRoutineViewModel.updateRoutine(
-                    ExerciseRoutineData(
-                        getId, getName,
-                        choiceRoutineList
-                    )
+            exerciseRoutineViewModel.updateRoutine(
+                ExerciseRoutineData(
+                    getId, getName,
+                    choiceRoutineList
                 )
-                intent = Intent(this, ExerciseRoutineActivity::class.java)
-                intent.putExtra("exerciseRoutineTitle", getName)
-                val exerciseList = ArrayList<ExerciseData>()
-                choiceRoutineList?.let { it1 -> exerciseList.addAll(it1) }
-                intent.putExtra("exerciseRoutine", exerciseList)
-                startActivity(intent)
-                finish()
-            }, 2500L)
+            )
+            if (checkSet()) {
+                showProverb()
+                Handler().postDelayed({
+                    intent = Intent(this, ExerciseRoutineActivity::class.java)
+                    intent.putExtra("exerciseRoutineTitle", getName)
+                    val exerciseList = ArrayList<ExerciseData>()
+                    choiceRoutineList?.let { it1 -> exerciseList.addAll(it1) }
+                    intent.putExtra("exerciseRoutine", exerciseList)
+                    startActivity(intent)
+                    finish()
+                }, 2200L)
+            }
+            else{
+                Toast.makeText(this,"세트 수를 넣어주세요.",Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
@@ -74,5 +80,15 @@ class WorkOutStartActivity : AppCompatActivity() {
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.show_fragment_layout, ProverbFragment())
         transaction.commit()
+    }
+
+    private fun checkSet(): Boolean {
+        val temp:List<ExerciseData> = choiceRoutineList!!
+        for (i in temp) {
+            if (i.set <= 0) {
+                return false
+            }
+        }
+        return true
     }
 }

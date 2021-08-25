@@ -1,12 +1,14 @@
 package com.example.healthroutineapplication.adapters
 
 import android.app.AlertDialog
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +17,7 @@ import com.example.healthroutineapplication.exerciseList
 import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 
-class WorkOutStartAdapter (val inflater: LayoutInflater) :
+class WorkOutStartAdapter (val inflater: LayoutInflater,val context: Context) :
     ListAdapter<ExerciseData, WorkOutStartAdapter.WorkOutStartViewHolder>(WORKOUTSTART_COMPARATOR) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkOutStartViewHolder {
@@ -41,9 +43,13 @@ class WorkOutStartAdapter (val inflater: LayoutInflater) :
                 builder.setPositiveButton("확인") { builder, which ->
                     val setWeight = view.findViewById<EditText>(R.id.weight_setting_edit)
                     val setSet = view.findViewById<EditText>(R.id.set_setting_edit)
-                    current.set = Integer.parseInt(setSet.text.toString())
-                    current.weight = Integer.parseInt(setWeight.text.toString())
-                    notifyDataSetChanged()
+                    if(setSet.text.isEmpty() || setWeight.text.isEmpty()){
+                        Toast.makeText(context,"정확히 입력해 주세요.",Toast.LENGTH_SHORT).show()
+                    }else{
+                        current.set = Integer.parseInt(setSet.text.toString())
+                        current.weight = Integer.parseInt(setWeight.text.toString())
+                        notifyDataSetChanged()
+                    }
                 }
                 builder.setNeutralButton("돌아가기") { builder, which -> }
                 builder.show()
