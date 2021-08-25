@@ -26,13 +26,10 @@ class MainActivity : AppCompatActivity(),GoActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
 
         val recyclerView=binding.mainRecyclerview1
-        val adapter=WorkOutRoutineAdapter(this,exerciseRoutineViewModel)
+        val adapter=WorkOutRoutineAdapter(this)
         recyclerView.adapter=adapter
         recyclerView.layoutManager= LinearLayoutManager(this)
 
-        exerciseRoutineViewModel.routines.observe(this){routines->
-            routines?.let { adapter.submitList(it) }
-        }
 
     }
 

@@ -15,14 +15,15 @@ import com.example.healthroutineapplication.choiceRoutineList
 import com.example.healthroutineapplication.interfaces.GoActivity
 import com.example.healthroutineapplication.models.ExerciseRoutineData
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
+import java.util.*
 
-class WorkOutRoutineAdapter(val goActivity: GoActivity,val viewModel:ExerciseRoutineViewModel) :
-    ListAdapter<ExerciseRoutineData, WorkOutRoutineAdapter.ExerciseRoutineViewHolder>(
-        ROUTINE_COMPARATOR
-    ) {
+class WorkOutRoutineAdapter(val goActivity: GoActivity) :
+    RecyclerView.Adapter<WorkOutRoutineAdapter.ExerciseRoutineViewHolder>() {
+
+    private var exerciseRoutineList = listOf<ExerciseRoutineData>()
 
     override fun onBindViewHolder(holder: ExerciseRoutineViewHolder, position: Int) {
-        val current = getItem(position)
+        val current = exerciseRoutineList[position]
         with(holder) {
             bind(current.routineName, position + 1)
 
@@ -31,12 +32,6 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity,val viewModel:ExerciseRou
                 goActivity.goActivity(current.id, current.routineName)
             }
 
-            root.setOnLongClickListener(object :View.OnLongClickListener{
-                override fun onLongClick(v: View?): Boolean {
-                    viewModel.delete(current)
-                    return true
-                }
-            })
         }
     }
 
@@ -63,23 +58,20 @@ class WorkOutRoutineAdapter(val goActivity: GoActivity,val viewModel:ExerciseRou
         }
     }
 
-    companion object {
-        private val ROUTINE_COMPARATOR = object : DiffUtil.ItemCallback<ExerciseRoutineData>() {
-            override fun areItemsTheSame(
-                oldItem: ExerciseRoutineData,
-                newItem: ExerciseRoutineData
-            ): Boolean {
-                return oldItem === newItem
-            }
+    fun setData(user:List<ExerciseRoutineData>){
+        this.exerciseRoutineList = user
+        notifyDataSetChanged()
+    }
 
-            override fun areContentsTheSame(
-                oldItem: ExerciseRoutineData,
-                newItem: ExerciseRoutineData
-            ): Boolean {
-                return oldItem.id == newItem.id
-            }
+    fun removeData(position: Int):ExerciseRoutineData{
+        val temp = exerciseRoutineList[position]
+        return ExerciseRoutineData(
+            temp.id,temp.routineName,temp.exerciseRoutine
+        )
+    }
 
-        }
+    override fun getItemCount(): Int {
+        return exerciseRoutineList.size
     }
 
 }
