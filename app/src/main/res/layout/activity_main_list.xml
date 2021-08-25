@@ -43,6 +43,10 @@
                     android:text="@string/actionBar_title"
                     android:textColor="@color/pointColor" />
 
+                <Button
+                    android:id="@+id/testButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </androidx.appcompat.widget.Toolbar>
 
             <com.google.android.material.button.MaterialButton
