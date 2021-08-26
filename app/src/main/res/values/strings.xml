@@ -22,5 +22,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="end_routine">설정한 루틴이 종료되었습니다.</string>
     <string name="end_exercise">운동 종료</string>
-    <string name="menu_pedometer">Pedometer</string>
+    <string name="menu_walks">Walks</string>
 </resources>
