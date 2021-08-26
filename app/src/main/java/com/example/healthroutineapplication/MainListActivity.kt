@@ -76,9 +76,6 @@ class MainListActivity : AppCompatActivity() {
         binding.shoppingButton.setOnClickListener {
             startActivity(Intent(this,WorkOutListActivity::class.java))
         }
-        binding.testButton.setOnClickListener {
-            startActivity(Intent(this, StepCounterActivity::class.java))
-        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

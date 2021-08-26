@@ -34,7 +34,7 @@ class StepCounterService : Service(), SensorEventListener {
             stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
         } catch (e: NullPointerException) {
             isSensor = false
-            stopService(Intent())
+            stopService(Intent(this,MainListActivity::class.java))
         }
         if (isSensor) {
             sensorManager.registerListener(
