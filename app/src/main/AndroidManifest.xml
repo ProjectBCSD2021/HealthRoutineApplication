@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.healthroutineapplication">
 
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
+
     <application
         android:name=".ExerciseRoutineApp"
         android:allowBackup="true"
@@ -10,25 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutineApplication">
-        <activity android:name=".activities.WorkOutStartActivity">
+        <service
+            android:name=".StepCounterService"
+            android:enabled="true"
+            android:exported="false"></service>
 
-        </activity>
-
-        <activity android:name=".activities.ExerciseListActivity" >
-
-        </activity>
-
-        <activity android:name=".activities.MainActivity">
-
-        </activity>
-
-        <activity android:name=".activities.WorkOutListActivity">
-
-        </activity>
-        <activity android:name=".ExerciseStartingActivity"/>
-        <activity android:name=".ExerciseRoutineActivity">
-
-        </activity>
+        <activity android:name=".StepCounterActivity" />
+        <activity android:name=".activities.WorkOutStartActivity" />
+        <activity android:name=".activities.WorkOutListActivity" />
+        <activity android:name=".ExerciseStartingActivity" />
+        <activity android:name=".ExerciseRoutineActivity" />
         <activity android:name=".MainListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,8 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
     </application>
 
 </manifest>

@@ -7,5 +7,7 @@ import com.example.healthroutineapplication.models.ExerciseData
 @Entity
 data class CalendarDataClass(
     @PrimaryKey var date: String,
-    val exerciseList: List<ExerciseData>
+    val exerciseList: List<ExerciseData>,
+    var stepCount : Int = 0,
+    var memo : String = ""
 )
