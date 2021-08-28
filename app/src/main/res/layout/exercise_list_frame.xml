@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
-
+    android:layout_margin="8dp"
+    app:cardElevation="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:paddingVertical="20dp"
+    app:cardCornerRadius="5dp"
+    app:strokeColor="@color/pointColor"
+    app:strokeWidth="1.5dp"
+    >
     <LinearLayout
+        android:padding="10dp"
+        android:foreground="?android:attr/selectableItemBackground"
         android:id="@+id/exercise_list_frame_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -139,5 +149,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
 
-</androidx.cardview.widget.CardView>
+

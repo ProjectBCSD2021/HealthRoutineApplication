@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -43,7 +44,7 @@ class WorkOutListAdapter(val test: ExerciseListAdd) :
 
     class WorkOutListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val exercise: TextView = itemView.findViewById(R.id.work_out_list_frame_text_view)
-        val root = itemView.findViewById<FrameLayout>(R.id.work_out_list_frame_layout)
+        val root = itemView.findViewById<ConstraintLayout>(R.id.work_out_list_frame_layout)
         fun bind(in_exercise: String?) {
             exercise.text = in_exercise
         }
