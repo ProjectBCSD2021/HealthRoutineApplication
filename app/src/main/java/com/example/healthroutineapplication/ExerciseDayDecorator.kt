@@ -8,22 +8,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class ExerciseDayDecorator(val exerciseList: List<CalendarDataClass>) : DayViewDecorator {
+class ExerciseDayDecorator(val dateList: List<Date>) : DayViewDecorator {
 
     private val calendar = Calendar.getInstance()
 
     override fun shouldDecorate(day: CalendarDay?): Boolean {
         day?.copyTo(calendar)
-        val date = ArrayList<Date>()
-        if (exerciseList.isEmpty())
-            return false
-        else {
-            for (i in 0..exerciseList.size - 1) {
-                val exerciseDate = SimpleDateFormat("yyyy-MM-dd").parse(exerciseList[i].date)!!
-                date.add(exerciseDate)
-            }
-        }
-        return date.contains(calendar.time)
+        return dateList.contains(calendar.time)
     }
 
     override fun decorate(view: DayViewFacade?) {

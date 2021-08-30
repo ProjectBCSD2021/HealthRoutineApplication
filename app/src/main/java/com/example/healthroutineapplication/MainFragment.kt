@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.activities.WorkOutListActivity
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
@@ -34,7 +35,6 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-
         with(binding) {
             with(mainRecyclerView) {
                 adapter = workOutAdapter
@@ -42,7 +42,6 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
                 mainRecyclerView.setHasFixedSize(true)
             }
         }
-
 
         exerciseRoutineViewModel.routines.observe(viewLifecycleOwner) { routines ->
             workOutAdapter.setData(routines)
@@ -114,7 +113,9 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         }
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.mainRecyclerView)
 
-
+        binding.shoppingButton.setOnClickListener {
+            startActivity(Intent(context, WorkOutListActivity::class.java))
+        }
 
         return binding.root
     }

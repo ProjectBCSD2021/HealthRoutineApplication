@@ -6,6 +6,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
@@ -23,7 +24,6 @@ import kotlinx.coroutines.launch
 class MainListActivity : AppCompatActivity() {
     
     lateinit var binding: ActivityMainListBinding
-    lateinit var calendarDatabase : CalendarDatabase
     private var exerciseList = listOf<CalendarDataClass>()
     private val permissionContract =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -39,8 +39,13 @@ class MainListActivity : AppCompatActivity() {
                 }
 
                 R.id.calendar -> {
+
                     replaceFragment(CalendarFragment(exerciseList))
                     return@OnNavigationItemSelectedListener true
+                }
+                R.id.walks -> {
+                    val intent = Intent(this,StepCounterActivity::class.java)
+                    startActivity(intent)
                 }
             }
             false
@@ -64,18 +69,16 @@ class MainListActivity : AppCompatActivity() {
 
         replaceFragment(MainFragment(intent))
 
-        calendarDatabase= CalendarDatabase.getInstance(application)!!
-
+        val calendarDatabase= CalendarDatabase.getInstance(this)!!
         CoroutineScope(Dispatchers.IO).launch {
             exerciseList = calendarDatabase.calendarDao().getAll()
         }
+
+//        Toast.makeText(this,exerciseList[0].date,Toast.LENGTH_SHORT).show()
+
         startService(Intent(this,StepCounterService::class.java))
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-
-        binding.shoppingButton.setOnClickListener {
-            startActivity(Intent(this,WorkOutListActivity::class.java))
-        }
     }
 
     private fun replaceFragment(fragment: Fragment) {

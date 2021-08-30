@@ -12,10 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutineApplication">
+        <activity android:name=".MemoEditActivity"></activity>
+
         <service
             android:name=".StepCounterService"
             android:enabled="true"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".StepCounterActivity" />
         <activity android:name=".activities.WorkOutStartActivity" />
