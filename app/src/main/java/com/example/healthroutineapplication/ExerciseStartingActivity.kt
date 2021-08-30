@@ -30,6 +30,7 @@ class ExerciseStartingActivity : AppCompatActivity() {
             startActivity(Intent(this, MainListActivity::class.java))
             finish()
         })
+        adapter.setData(dataList)
         viewModel = ViewModelProvider(this, ExerciseStartingViewModelFactory(dataList)).get(
             ExerciseStartingViewModel::class.java
         )
@@ -40,9 +41,11 @@ class ExerciseStartingActivity : AppCompatActivity() {
                 mediaPlayer.start()
             }
         })
-        viewModel.exerciseList.observe(this, {
-            adapter.highlightPosition = viewModel.nowIndex
-            adapter.setData(it)
+        viewModel.setList.observe(this,{
+            adapter.setChange(it)
+        })
+        viewModel.nowIndex.observe(this,{
+            adapter.highlightPosition = it
         })
         viewModel.resting.observe(this, {
             if (it) binding.exerciseState.text = getString(R.string.state_resting)
@@ -59,7 +62,7 @@ class ExerciseStartingActivity : AppCompatActivity() {
         })
         viewModel.isEnd.observe(this, {
             if (it) {
-                database?.let { database -> viewModel.saveCalendarData(database, dataList) }
+                database?.let { database -> viewModel.saveCalendarData(database) }
                 builder.create().show()
             }
         })

@@ -1,5 +1,6 @@
 package com.example.healthroutineapplication
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,35 +13,42 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.timer
 
-class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel() {
+class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) : ViewModel() {
     private val _time = MutableLiveData<String>()
-    private val _exerciseList = MutableLiveData<ArrayList<ExerciseData>>()
     private val _resting = MutableLiveData<Boolean>() //true면 쉬는시간 false면 운동시간
     private val _timerEnable = MutableLiveData<Boolean>() //true면 타이머가동중
     private val _isEnd = MutableLiveData<Boolean>()//운동이 끝낫는지 확인
+    private val _nowIndex = MutableLiveData<Int>()
+    private val _setList = MutableLiveData<ArrayList<Int>>()
     val time: LiveData<String>
         get() = _time
-    val exerciseList: LiveData<ArrayList<ExerciseData>>
-        get() = _exerciseList
     val resting: LiveData<Boolean>
         get() = _resting
     val timerEnable: LiveData<Boolean>
         get() = _timerEnable
     val isEnd: LiveData<Boolean>
         get() = _isEnd
-    private var listItems = ArrayList<ExerciseData>()
+    val nowIndex : LiveData<Int>
+        get() = _nowIndex
+    val setList : LiveData<ArrayList<Int>>
+        get() = _setList
     private var timer: Timer? = null
     private var min = 0
     private var sec = 0
-    var nowIndex = 0 //현재 진행중인 운동 인덱스
+    private var tempSet = 0
+    private var tempList = ArrayList<Int>()
     private var dataSize = 0 //총 운동 수
 
     init {
-        listItems = dataList
-        _exerciseList.value = listItems
-        secToMinSec(listItems[nowIndex].exerciseTime)
+        _nowIndex.value = 0
+        secToMinSec(dataList[0].exerciseTime)
         _time.value = minSecToTime(min, sec)
-        dataSize = listItems.size
+        dataSize = dataList.size
+        tempSet = dataList[0].set
+        for(dat in dataList){
+            _setList.value?.add(dat.set)
+            tempList.add(dat.set)
+        }
         _resting.value = false
         _timerEnable.value = false
         _isEnd.value = false
@@ -60,19 +68,23 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel()
                         endRestTime()
                     } else { // 운동시간이 끝난경우
                         _resting.postValue(true)
-                        secToMinSec(listItems[nowIndex].restTime)
-                        listItems[nowIndex].set--
-                        if (listItems[nowIndex].set == 0) {//마지막 세트가 끝나면
-                            nowIndex++//다음 운동
-                            if (nowIndex == dataSize) { //마지막운동이 끝나면
+                        secToMinSec(dataList[_nowIndex.value!!].restTime)
+                        tempSet--
+                        tempList[_nowIndex.value!!] = tempSet
+                        _setList.postValue(tempList)
+                        if (tempSet == 0) {//마지막 세트가 끝나면
+                            if (_nowIndex.value == dataSize-1) { //마지막운동이 끝나면
                                 stopTimer()
                                 _timerEnable.postValue(false)
                                 min = 0
                                 sec = 0
                                 _isEnd.postValue(true)
                             }
+                            else{
+                                tempSet = dataList[_nowIndex.value!!].set
+                            }
+                            _nowIndex.postValue(_nowIndex.value!!+1)//다음 운동
                         }
-                        _exerciseList.postValue(listItems)
                     }
                 }
             }
@@ -81,6 +93,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel()
     }
 
     fun stopTimer() {
+        _timerEnable.postValue(false)
         timer?.cancel()
     }
 
@@ -89,32 +102,36 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel()
         stopTimer()
         _timerEnable.value = false
         if (_resting.value == true) {
-            if (nowIndex >= dataSize) return false
+            if (_nowIndex.value!! >= dataSize) return false
             _resting.value = false
             endRestTime()
         } else {
             _resting.value = true
             endExerciseTime()
-            _exerciseList.value = listItems
         }
         _time.value = minSecToTime(min, sec)
         return true
     }
 
     private fun endRestTime() {
-        secToMinSec(listItems[nowIndex].exerciseTime)
+        secToMinSec(dataList[_nowIndex.value!!].exerciseTime)
     }
 
     private fun endExerciseTime() {
-        secToMinSec(listItems[nowIndex].restTime)
-        listItems[nowIndex].set--
-        if (listItems[nowIndex].set == 0) {//마지막 세트가 끝나면
-            nowIndex++//다음 운동
-            if (nowIndex == dataSize) { //마지막운동이 끝나면
+        secToMinSec(dataList[_nowIndex.value!!].restTime)
+        tempSet--
+        tempList[_nowIndex.value!!] = tempSet
+        _setList.value = tempList
+        if (tempSet == 0) {//마지막 세트가 끝나면
+            _nowIndex.value=_nowIndex.value!!+1//다음 운동
+            if (_nowIndex.value!! == dataSize) { //마지막운동이 끝나면
+                Log.d("catchError",_setList.value.toString())
                 stopTimer()
                 min = 0
                 sec = 0
                 _isEnd.value = true
+            } else {
+                tempSet = dataList[_nowIndex.value!!].set
             }
         }
     }
@@ -132,7 +149,7 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel()
         sec = dataSec % 60
     }
 
-    fun saveCalendarData(database: CalendarDatabase, dataList: ArrayList<ExerciseData>) {
+    fun saveCalendarData(database: CalendarDatabase) {
         val today = SimpleDateFormat("yyyy-MM-dd").format(Date())
         CoroutineScope(Dispatchers.IO).launch {
             val todayData = database.calendarDao().searchToday(today)
@@ -140,7 +157,9 @@ class ExerciseStartingViewModel(dataList: ArrayList<ExerciseData>) : ViewModel()
                 database.calendarDao().insert(CalendarDataClass(today, dataList))
             } else {
                 dataList.addAll(todayData[0].exerciseList)
-                database.calendarDao().update(CalendarDataClass(today, dataList))
+                var tempData = todayData[0]
+                tempData.exerciseList = dataList
+                database.calendarDao().update(tempData)
             }
         }
     }
