@@ -18,6 +18,7 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
     private val _resting = MutableLiveData<Boolean>() //true면 쉬는시간 false면 운동시간
     private val _timerEnable = MutableLiveData<Boolean>() //true면 타이머가동중
     private val _isEnd = MutableLiveData<Boolean>()//운동이 끝낫는지 확인
+    private val _nowIndex = MutableLiveData<Int>()
     private val _setList = MutableLiveData<ArrayList<Int>>()
     val time: LiveData<String>
         get() = _time
@@ -27,6 +28,8 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
         get() = _timerEnable
     val isEnd: LiveData<Boolean>
         get() = _isEnd
+    val nowIndex : LiveData<Int>
+        get() = _nowIndex
     val setList : LiveData<ArrayList<Int>>
         get() = _setList
     private var timer: Timer? = null
@@ -35,9 +38,9 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
     private var tempSet = 0
     private var tempList = ArrayList<Int>()
     private var dataSize = 0 //총 운동 수
-    var nowIndex = 0
 
     init {
+        _nowIndex.value = 0
         secToMinSec(dataList[0].exerciseTime)
         _time.value = minSecToTime(min, sec)
         dataSize = dataList.size
@@ -65,13 +68,12 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
                         endRestTime()
                     } else { // 운동시간이 끝난경우
                         _resting.postValue(true)
-                        secToMinSec(dataList[nowIndex].restTime)
+                        secToMinSec(dataList[_nowIndex.value!!].restTime)
                         tempSet--
-                        tempList[nowIndex] = tempSet
+                        tempList[_nowIndex.value!!] = tempSet
                         _setList.postValue(tempList)
                         if (tempSet == 0) {//마지막 세트가 끝나면
-                            nowIndex++//다음 운동
-                            if (nowIndex == dataSize) { //마지막운동이 끝나면
+                            if (_nowIndex.value == dataSize-1) { //마지막운동이 끝나면
                                 stopTimer()
                                 _timerEnable.postValue(false)
                                 min = 0
@@ -79,8 +81,9 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
                                 _isEnd.postValue(true)
                             }
                             else{
-                                tempSet = dataList[nowIndex].set
+                                tempSet = dataList[_nowIndex.value!!].set
                             }
+                            _nowIndex.postValue(_nowIndex.value!!+1)//다음 운동
                         }
                     }
                 }
@@ -99,7 +102,7 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
         stopTimer()
         _timerEnable.value = false
         if (_resting.value == true) {
-            if (nowIndex == dataSize-1) return false
+            if (_nowIndex.value!! >= dataSize) return false
             _resting.value = false
             endRestTime()
         } else {
@@ -111,24 +114,24 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
     }
 
     private fun endRestTime() {
-        secToMinSec(dataList[nowIndex].exerciseTime)
+        secToMinSec(dataList[_nowIndex.value!!].exerciseTime)
     }
 
     private fun endExerciseTime() {
-        secToMinSec(dataList[nowIndex].restTime)
+        secToMinSec(dataList[_nowIndex.value!!].restTime)
         tempSet--
-        tempList[nowIndex] = tempSet
+        tempList[_nowIndex.value!!] = tempSet
         _setList.value = tempList
         if (tempSet == 0) {//마지막 세트가 끝나면
-            nowIndex++//다음 운동
-            if (nowIndex == dataSize) { //마지막운동이 끝나면
+            _nowIndex.value=_nowIndex.value!!+1//다음 운동
+            if (_nowIndex.value!! == dataSize) { //마지막운동이 끝나면
                 Log.d("catchError",_setList.value.toString())
                 stopTimer()
                 min = 0
                 sec = 0
                 _isEnd.value = true
             } else {
-                tempSet = dataList[nowIndex].set
+                tempSet = dataList[_nowIndex.value!!].set
             }
         }
     }

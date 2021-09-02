@@ -12,7 +12,7 @@ import com.example.healthroutineapplication.models.ExerciseData
 class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapter<ExerciseStartingAdapter.ViewHolder>() {
     private var datas = mutableListOf<ExerciseData>()
     private var setList = mutableListOf<Int>()
-    var highlightPosition = -1
+    var highlightPosition = 0
     override fun getItemCount(): Int = datas.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
