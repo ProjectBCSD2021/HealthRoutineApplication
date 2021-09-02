@@ -16,6 +16,7 @@ import com.example.healthroutineapplication.*
 import com.example.healthroutineapplication.activities.WorkOutListActivity
 import com.example.healthroutineapplication.adapters.ExerciseListAdapter
 import com.example.healthroutineapplication.databinding.FragmentExerciseListBinding
+import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.models.ExerciseRoutineData
 import com.example.healthroutineapplication.repositories.WorkOutListRepository
 import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
@@ -58,6 +59,7 @@ class ExerciseListFragment(val viewModel: ExerciseRoutineViewModel,val workOutLi
                 val exerciseRoutineData = ExerciseRoutineData(null,routineName, exerciseList)
                 viewModel.insert(exerciseRoutineData)
                 workOutListContainerView.visibility = View.GONE
+                exerciseList = mutableListOf<ExerciseData>()
                 activity?.finish()
             }
             builder.setNeutralButton("돌아가기") { builder, which -> }

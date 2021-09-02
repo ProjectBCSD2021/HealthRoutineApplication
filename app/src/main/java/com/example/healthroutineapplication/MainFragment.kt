@@ -94,12 +94,12 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
                         //스와이프 시 아이콘도 나오게 함, img_Asset 사용
                         icon = BitmapFactory.decodeResource(resources, R.drawable.ic_stat_name)
                         val iconDst = RectF(
-                            itemView.right.toFloat() -3*width,
+                            itemView.right.toFloat() - 3 * width,
                             itemView.top.toFloat() + width,
-                            itemView.right.toFloat() -width,
+                            itemView.right.toFloat() - width,
                             itemView.bottom.toFloat() - width
                         )
-                        c.drawBitmap(icon,null,iconDst,null)
+                        c.drawBitmap(icon, null, iconDst, null)
                     }
                 }
                 super.onChildDraw(
