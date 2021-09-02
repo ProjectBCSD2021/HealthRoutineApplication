@@ -25,6 +25,7 @@ class MainListActivity : AppCompatActivity() {
     
     lateinit var binding: ActivityMainListBinding
     private var exerciseList = listOf<CalendarDataClass>()
+    lateinit var mainFragment: Fragment
     private val permissionContract =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             if (!it) finish()
@@ -34,7 +35,7 @@ class MainListActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.list -> {
-                    replaceFragment(MainFragment(Intent(this, WorkOutStartActivity::class.java)))
+                    replaceFragment(mainFragment)
                     return@OnNavigationItemSelectedListener true
                 }
 
@@ -52,12 +53,11 @@ class MainListActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        Log.d("Activity","onCreate")
-
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_list)
         val intent = Intent(this,WorkOutStartActivity::class.java)
+        supportFragmentManager.fragmentFactory = MainFragmentFactory(intent,exerciseList)
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_list)
+
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q){
             permissionContract.launch(Manifest.permission.ACTIVITY_RECOGNITION)
@@ -67,14 +67,13 @@ class MainListActivity : AppCompatActivity() {
         val actionBar: ActionBar = supportActionBar!!
         actionBar.setDisplayShowTitleEnabled(false)
 
-        replaceFragment(MainFragment(intent))
+        mainFragment = supportFragmentManager.fragmentFactory.instantiate(classLoader,MainFragment::class.java.name)
+        replaceFragment(mainFragment)
 
-        val calendarDatabase= CalendarDatabase.getInstance(this)!!
+        val calendarDatabase= CalendarDatabase.getInstance(applicationContext)!!
         CoroutineScope(Dispatchers.IO).launch {
             exerciseList = calendarDatabase.calendarDao().getAll()
         }
-
-//        Toast.makeText(this,exerciseList[0].date,Toast.LENGTH_SHORT).show()
 
         startService(Intent(this,StepCounterService::class.java))
 

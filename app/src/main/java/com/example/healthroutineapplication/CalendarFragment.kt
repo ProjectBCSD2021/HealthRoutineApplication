@@ -45,7 +45,7 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
         if (exerciseDataList.isNotEmpty()) {
             for (i in 0..exerciseDataList.size - 1) {
                 val exerciseDate = SimpleDateFormat("yyyy-MM-dd").parse(exerciseDataList[i].date)!!
-                if(exerciseDataList[i].exerciseList[0].exerciseTime > 0)
+                if(exerciseDataList[i].exerciseList.isNotEmpty())
                     dateList.add(exerciseDate)
             }
         }
@@ -76,7 +76,7 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
                 val strDate = SimpleDateFormat("yyyy-MM-dd").format(date.date)
                 var pos = -1
                 for(i in 0..exerciseDataList.size-1) {
-                    if(exerciseDataList[i].date==strDate && exerciseDataList[i].exerciseList[0].exerciseTime>0){
+                    if(exerciseDataList[i].date==strDate){
                         pos=i
                     }
                 }
@@ -91,16 +91,22 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
                         dialogAdapter.setData(workOutList)
                     }
                     else{
-                        with(recyclerView){
-                            layoutManager =
-                                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                            recyclerView.setHasFixedSize(true)
-                            val dialogAdapter = CalendarDialogAdapter()
+                                with(recyclerView){
+                                    layoutManager =
+                                        LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                                    recyclerView.setHasFixedSize(true)
+                                    val dialogAdapter = CalendarDialogAdapter()
                             adapter = dialogAdapter
                         }
                     }
                 val memo = dialongView.findViewById<TextView>(R.id.memo)
-                memo.setText(exerciseDataList[pos].memo)
+                if(pos>-1)
+                    if(exerciseDataList[pos].memo.isNotEmpty())
+                        memo.setText(exerciseDataList[pos].memo)
+                    else
+                        memo.setText(R.string.no_memo)
+                else
+                    memo.setText(R.string.no_memo)
                 alertDialogBuilder.show()
                 val okButton = dialongView.findViewById<Button>(R.id.ok_memo)
                 okButton.setOnClickListener {
@@ -109,11 +115,25 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
 
                 val editButton = dialongView.findViewById<Button>(R.id.edit_memo)
                 editButton.setOnClickListener {
+
 //                    Toast.makeText(context,"EDIT",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(activity,MemoEditActivity::class.java)
-                    intent.putExtra("position",pos)
-                    startActivity(intent)
-                    alertDialogBuilder.dismiss()
+                    val intent = Intent(activity?.applicationContext,MemoEditActivity::class.java)
+                    if(pos>-1 && exerciseDataList[pos].exerciseList.isNotEmpty()) {
+                        intent.putExtra("memo", exerciseDataList[pos].memo)
+                        intent.putExtra(
+                            "exerciseList",
+                            exerciseDataList[pos].exerciseList as ArrayList
+                        )
+                        intent.putExtra("step", exerciseDataList[pos].stepCount)
+                        intent.putExtra("date", exerciseDataList[pos].date)
+                        startActivity(intent)
+                        alertDialogBuilder.dismiss()
+                        activity?.finish()
+                    }
+                    else{
+                        Toast.makeText(context,"해당 날짜의 메모를 편집할 수 없습니다.",Toast.LENGTH_SHORT).show()
+                        alertDialogBuilder.dismiss()
+                    }
                 }
             }
 
