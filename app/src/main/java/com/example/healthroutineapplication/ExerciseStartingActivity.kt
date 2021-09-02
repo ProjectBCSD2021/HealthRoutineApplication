@@ -43,10 +43,11 @@ class ExerciseStartingActivity : AppCompatActivity() {
         })
         viewModel.setList.observe(this,{
             adapter.setChange(it)
+            adapter.highlightPosition = viewModel.nowIndex
         })
-        viewModel.nowIndex.observe(this,{
+        /*viewModel.nowIndex.observe(this,{
             adapter.highlightPosition = it
-        })
+        })*/
         viewModel.resting.observe(this, {
             if (it) binding.exerciseState.text = getString(R.string.state_resting)
             else binding.exerciseState.text = getString(R.string.state_exercising)
