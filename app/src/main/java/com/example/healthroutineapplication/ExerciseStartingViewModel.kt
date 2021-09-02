@@ -38,6 +38,7 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
     private var tempSet = 0
     private var tempList = ArrayList<Int>()
     private var dataSize = 0 //총 운동 수
+    private var tempIndex = 0
 
     init {
         _nowIndex.value = 0
@@ -68,12 +69,12 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
                         endRestTime()
                     } else { // 운동시간이 끝난경우
                         _resting.postValue(true)
-                        secToMinSec(dataList[_nowIndex.value!!].restTime)
+                        secToMinSec(dataList[tempIndex].restTime)
                         tempSet--
-                        tempList[_nowIndex.value!!] = tempSet
+                        tempList[tempIndex] = tempSet
                         _setList.postValue(tempList)
                         if (tempSet == 0) {//마지막 세트가 끝나면
-                            if (_nowIndex.value == dataSize-1) { //마지막운동이 끝나면
+                            if (tempIndex == dataSize-1) { //마지막운동이 끝나면
                                 stopTimer()
                                 _timerEnable.postValue(false)
                                 min = 0
@@ -81,9 +82,10 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
                                 _isEnd.postValue(true)
                             }
                             else{
-                                tempSet = dataList[_nowIndex.value!!].set
+                                tempIndex++
+                                _nowIndex.postValue(tempIndex)//다음 운동
+                                tempSet = dataList[tempIndex].set
                             }
-                            _nowIndex.postValue(_nowIndex.value!!+1)//다음 운동
                         }
                     }
                 }
@@ -156,9 +158,11 @@ class ExerciseStartingViewModel(private val dataList: ArrayList<ExerciseData>) :
             if (todayData.isEmpty()) {
                 database.calendarDao().insert(CalendarDataClass(today, dataList))
             } else {
-                dataList.addAll(todayData[0].exerciseList)
+                var tempList = ArrayList<ExerciseData>()
+                tempList.addAll(todayData[0].exerciseList)
+                tempList.addAll(dataList)
                 var tempData = todayData[0]
-                tempData.exerciseList = dataList
+                tempData.exerciseList = tempList
                 database.calendarDao().update(tempData)
             }
         }
