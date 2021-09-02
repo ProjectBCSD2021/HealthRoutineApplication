@@ -3,6 +3,7 @@ package com.example.healthroutineapplication
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.activities.WorkOutListActivity
+import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity
@@ -34,7 +37,6 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
 
-
         with(binding) {
             with(mainRecyclerView) {
                 adapter = workOutAdapter
@@ -42,7 +44,6 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
                 mainRecyclerView.setHasFixedSize(true)
             }
         }
-
 
         exerciseRoutineViewModel.routines.observe(viewLifecycleOwner) { routines ->
             workOutAdapter.setData(routines)
@@ -93,12 +94,12 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
                         //스와이프 시 아이콘도 나오게 함, img_Asset 사용
                         icon = BitmapFactory.decodeResource(resources, R.drawable.ic_stat_name)
                         val iconDst = RectF(
-                            itemView.right.toFloat() -3*width,
+                            itemView.right.toFloat() - 3 * width,
                             itemView.top.toFloat() + width,
-                            itemView.right.toFloat() -width,
+                            itemView.right.toFloat() - width,
                             itemView.bottom.toFloat() - width
                         )
-                        c.drawBitmap(icon,null,iconDst,null)
+                        c.drawBitmap(icon, null, iconDst, null)
                     }
                 }
                 super.onChildDraw(
@@ -114,7 +115,9 @@ class MainFragment(val intent: Intent) : Fragment(), GoActivity {
         }
         ItemTouchHelper(itemTouchCallback).attachToRecyclerView(binding.mainRecyclerView)
 
-
+        binding.shoppingButton.setOnClickListener {
+            startActivity(Intent(context, WorkOutListActivity::class.java))
+        }
 
         return binding.root
     }

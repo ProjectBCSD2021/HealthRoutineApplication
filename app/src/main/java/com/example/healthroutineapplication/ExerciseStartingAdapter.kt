@@ -11,11 +11,12 @@ import com.example.healthroutineapplication.models.ExerciseData
 
 class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapter<ExerciseStartingAdapter.ViewHolder>() {
     private var datas = mutableListOf<ExerciseData>()
+    private var setList = mutableListOf<Int>()
     var highlightPosition = -1
     override fun getItemCount(): Int = datas.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(datas[position])
+        holder.bind(datas[position], setList[position])
         if (position == highlightPosition) {
             holder.binding.exercise.setTextColor(ContextCompat.getColor(context, R.color.pointColor))
             holder.binding.exercise.setTypeface(null, Typeface.BOLD)
@@ -31,9 +32,9 @@ class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapt
     }
 
     inner class ViewHolder(val binding: ExerciseStartRecyclerBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ExerciseData) {
+        fun bind(item: ExerciseData, set : Int) {
             binding.exercise.text = item.exercise
-            binding.set.text = item.set.toString()
+            binding.set.text = set.toString()
             binding.exerciseTime.text = item.exerciseTime.toString() + "초"
             binding.restTime.text = item.restTime.toString() + "초"
             binding.weight.text = item.weight.toString() + "kg"
@@ -42,6 +43,14 @@ class ExerciseStartingAdapter(private val context: Context) : RecyclerView.Adapt
 
     fun setData(dataList: ArrayList<ExerciseData>) {
         datas = dataList
+        setList.clear()
+        for(dat in dataList){
+            setList.add(dat.set)
+        }
+        notifyDataSetChanged()
+    }
+    fun setChange(changingSetList : ArrayList<Int>){
+        setList = changingSetList
         notifyDataSetChanged()
     }
 }

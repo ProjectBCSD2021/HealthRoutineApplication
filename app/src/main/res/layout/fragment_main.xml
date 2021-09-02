@@ -4,17 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainFragment">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_marginVertical="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/shoppingButton"
+            style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
+            android:layout_width="56sp"
+            android:layout_height="56sp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:backgroundTint="@color/pointColor"
+            app:cornerRadius="30dp"
+            app:icon="@drawable/ic_baseline_add_24"
+            app:iconGravity="top"
+            app:iconSize="30dp"
+            app:iconTint="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
 
             android:id="@+id/mainRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </layout>

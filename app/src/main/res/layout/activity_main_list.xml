@@ -10,6 +10,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="4dp">
+
+                <TextView
+                    android:id="@+id/toolbar_title"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/actionBar_title"
+                    android:textColor="@color/pointColor" />
+            </androidx.appcompat.widget.Toolbar>
+
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomNaviBar"
                 android:layout_width="match_parent"
@@ -21,46 +38,10 @@
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
 
+
+
+
         </FrameLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".MainListActivity">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:elevation="4dp">
-
-                <TextView
-                    android:id="@+id/toolbar_title"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:text="@string/actionBar_title"
-                    android:textColor="@color/pointColor" />
-
-            </androidx.appcompat.widget.Toolbar>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/shoppingButton"
-                style="@style/Widget.MaterialComponents.ExtendedFloatingActionButton"
-                android:layout_width="56sp"
-                android:layout_height="56sp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="30dp"
-                android:layout_marginBottom="90dp"
-                android:backgroundTint="@color/pointColor"
-                app:cornerRadius="30dp"
-                app:icon="@drawable/ic_baseline_add_24"
-                app:iconGravity="top"
-                app:iconSize="30dp"
-                app:iconTint="@color/white" />
-
-        </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

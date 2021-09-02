@@ -203,7 +203,7 @@ fun getProverbs():List<Proverb>{
     )
 }
 
-val exerciseList = mutableListOf<ExerciseData>()
+var exerciseList = mutableListOf<ExerciseData>()
 
 var choiceRoutineList:List<ExerciseData>? = mutableListOf<ExerciseData>()
 
