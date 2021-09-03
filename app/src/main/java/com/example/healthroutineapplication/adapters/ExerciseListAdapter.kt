@@ -10,13 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.healthroutineapplication.ExerciseStartingViewModel
 import com.example.healthroutineapplication.models.ExerciseData
 import com.example.healthroutineapplication.R
-import com.example.healthroutineapplication.choiceRoutineList
 import com.example.healthroutineapplication.exerciseList
-import com.example.healthroutineapplication.models.ExerciseRoutineData
-import com.example.healthroutineapplication.viewmodels.ExerciseRoutineViewModel
 
 class ExerciseListAdapter(val inflater: LayoutInflater) :
     ListAdapter<ExerciseData, ExerciseListAdapter.ExerciseListViewHolder>(EXERCISELIST_COMPARATOR) {

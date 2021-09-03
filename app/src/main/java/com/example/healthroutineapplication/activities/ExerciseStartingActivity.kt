@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.activities
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,8 +9,13 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.example.healthroutineapplication.*
+import com.example.healthroutineapplication.adapters.ExerciseStartingAdapter
+import com.example.healthroutineapplication.databases.CalendarDatabase
 import com.example.healthroutineapplication.databinding.ActivityExerciseStartingBinding
 import com.example.healthroutineapplication.models.ExerciseData
+import com.example.healthroutineapplication.viewmodels.ExerciseStartingViewModel
+import com.example.healthroutineapplication.viewmodels.ExerciseStartingViewModelFactory
 
 class ExerciseStartingActivity : AppCompatActivity() {
     lateinit var binding: ActivityExerciseStartingBinding
@@ -61,6 +66,7 @@ class ExerciseStartingActivity : AppCompatActivity() {
             }
         })
         viewModel.isEnd.observe(this, {
+
             if (it) {
                 database?.let { database -> viewModel.saveCalendarData(database) }
                 builder.create().show()

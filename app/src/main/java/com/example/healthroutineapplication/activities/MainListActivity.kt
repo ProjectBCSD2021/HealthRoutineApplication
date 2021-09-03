@@ -1,20 +1,23 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.activities
 
 import android.Manifest
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import com.example.healthroutineapplication.activities.WorkOutListActivity
-import com.example.healthroutineapplication.activities.WorkOutStartActivity
+import com.example.healthroutineapplication.R
+import com.example.healthroutineapplication.StepCounterService
+import com.example.healthroutineapplication.databases.CalendarDatabase
 import com.example.healthroutineapplication.databinding.ActivityMainListBinding
+import com.example.healthroutineapplication.fragments.CalendarFragment
+import com.example.healthroutineapplication.fragments.MainFragment
+import com.example.healthroutineapplication.fragments.MainFragmentFactory
+import com.example.healthroutineapplication.models.CalendarDataClass
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -45,7 +48,7 @@ class MainListActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.walks -> {
-                    val intent = Intent(this,StepCounterActivity::class.java)
+                    val intent = Intent(this, StepCounterActivity::class.java)
                     startActivity(intent)
                 }
             }
@@ -67,7 +70,8 @@ class MainListActivity : AppCompatActivity() {
         val actionBar: ActionBar = supportActionBar!!
         actionBar.setDisplayShowTitleEnabled(false)
 
-        mainFragment = supportFragmentManager.fragmentFactory.instantiate(classLoader,MainFragment::class.java.name)
+        mainFragment = supportFragmentManager.fragmentFactory.instantiate(classLoader,
+            MainFragment::class.java.name)
         replaceFragment(mainFragment)
 
         val calendarDatabase= CalendarDatabase.getInstance(applicationContext)!!
@@ -75,7 +79,7 @@ class MainListActivity : AppCompatActivity() {
             exerciseList = calendarDatabase.calendarDao().getAll()
         }
 
-        startService(Intent(this,StepCounterService::class.java))
+        startService(Intent(this, StepCounterService::class.java))
 
         binding.bottomNaviBar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
     }

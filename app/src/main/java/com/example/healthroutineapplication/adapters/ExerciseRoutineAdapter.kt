@@ -1,11 +1,10 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.adapters
 
 import android.content.Context
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import com.example.healthroutineapplication.databinding.ExerciseRoutineRecyclerBinding
 import com.example.healthroutineapplication.models.ExerciseData

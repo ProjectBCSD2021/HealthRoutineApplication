@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.healthroutineapplication.databases.CalendarDatabase
+import com.example.healthroutineapplication.models.CalendarDataClass
 import com.example.healthroutineapplication.models.ExerciseData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

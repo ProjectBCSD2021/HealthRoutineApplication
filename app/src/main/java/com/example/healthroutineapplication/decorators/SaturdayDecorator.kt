@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.decorators
 
 import android.graphics.Color
 import android.text.style.ForegroundColorSpan

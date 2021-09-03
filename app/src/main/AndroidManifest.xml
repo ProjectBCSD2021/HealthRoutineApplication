@@ -12,19 +12,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutineApplication">
-        <activity android:name=".MemoEditActivity"></activity>
+        <activity android:name=".activities.MemoEditActivity"></activity>
 
         <service
             android:name=".StepCounterService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".StepCounterActivity" />
+        <activity android:name=".activities.StepCounterActivity" />
         <activity android:name=".activities.WorkOutStartActivity" />
         <activity android:name=".activities.WorkOutListActivity" />
-        <activity android:name=".ExerciseStartingActivity" />
-        <activity android:name=".ExerciseRoutineActivity" />
-        <activity android:name=".MainListActivity">
+        <activity android:name=".activities.ExerciseStartingActivity" />
+        <activity android:name=".activities.ExerciseRoutineActivity" />
+        <activity android:name=".activities.MainListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

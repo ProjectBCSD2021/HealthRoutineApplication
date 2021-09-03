@@ -1,9 +1,8 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.fragments
 
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.ExerciseRoutineApp
+import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.activities.WorkOutListActivity
-import com.example.healthroutineapplication.activities.WorkOutStartActivity
 import com.example.healthroutineapplication.adapters.WorkOutRoutineAdapter
 import com.example.healthroutineapplication.databinding.FragmentMainBinding
 import com.example.healthroutineapplication.interfaces.GoActivity

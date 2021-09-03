@@ -10,9 +10,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.healthroutineapplication.*
-import com.example.healthroutineapplication.adapters.ExerciseListAdapter
 import com.example.healthroutineapplication.adapters.WorkOutStartAdapter
-import com.example.healthroutineapplication.databinding.ActivityWorkOutListBinding
 import com.example.healthroutineapplication.databinding.ActivityWorkOutStartBinding
 import com.example.healthroutineapplication.fragments.ProverbFragment
 import com.example.healthroutineapplication.models.ExerciseData

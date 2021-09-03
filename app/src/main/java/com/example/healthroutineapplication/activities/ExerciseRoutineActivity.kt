@@ -1,10 +1,12 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.healthroutineapplication.adapters.ExerciseRoutineAdapter
+import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.databinding.ActivityExerciseRoutineBinding
 import com.example.healthroutineapplication.models.ExerciseData
 

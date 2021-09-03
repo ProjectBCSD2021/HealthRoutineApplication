@@ -1,9 +1,11 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.healthroutineapplication.databases.CalendarDatabase
+import com.example.healthroutineapplication.models.CalendarDataClass
 import com.example.healthroutineapplication.models.ExerciseData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

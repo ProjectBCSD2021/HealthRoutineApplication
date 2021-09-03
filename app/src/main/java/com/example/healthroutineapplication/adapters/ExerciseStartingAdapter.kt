@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.adapters
 
 import android.content.Context
 import android.graphics.Typeface
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.R
 import com.example.healthroutineapplication.databinding.ExerciseStartRecyclerBinding
 import com.example.healthroutineapplication.models.ExerciseData
 

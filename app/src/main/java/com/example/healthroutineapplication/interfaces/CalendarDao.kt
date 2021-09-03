@@ -1,6 +1,7 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.interfaces
 
 import androidx.room.*
+import com.example.healthroutineapplication.models.CalendarDataClass
 
 @Dao
 interface CalendarDao {

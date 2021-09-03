@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

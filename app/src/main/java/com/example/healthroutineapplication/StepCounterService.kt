@@ -9,6 +9,9 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.IBinder
 import android.util.Log
+import com.example.healthroutineapplication.activities.MainListActivity
+import com.example.healthroutineapplication.databases.CalendarDatabase
+import com.example.healthroutineapplication.models.CalendarDataClass
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -34,7 +37,7 @@ class StepCounterService : Service(), SensorEventListener {
             stepDetectorSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
         } catch (e: NullPointerException) {
             isSensor = false
-            stopService(Intent(this,MainListActivity::class.java))
+            stopService(Intent(this, MainListActivity::class.java))
         }
         if (isSensor) {
             sensorManager.registerListener(

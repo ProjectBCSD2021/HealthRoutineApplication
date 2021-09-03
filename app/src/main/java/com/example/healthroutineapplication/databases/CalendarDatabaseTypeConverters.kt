@@ -1,4 +1,4 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.databases
 
 import androidx.room.TypeConverter
 import com.example.healthroutineapplication.models.ExerciseData

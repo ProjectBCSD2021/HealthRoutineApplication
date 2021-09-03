@@ -1,7 +1,6 @@
-package com.example.healthroutineapplication
+package com.example.healthroutineapplication.fragments
 
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,8 +15,15 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.healthroutineapplication.*
+import com.example.healthroutineapplication.activities.MemoEditActivity
 import com.example.healthroutineapplication.adapters.CalendarDialogAdapter
 import com.example.healthroutineapplication.databinding.FragmentCalendarBinding
+import com.example.healthroutineapplication.decorators.ExerciseDayDecorator
+import com.example.healthroutineapplication.decorators.SaturdayDecorator
+import com.example.healthroutineapplication.decorators.SundayDecorator
+import com.example.healthroutineapplication.decorators.TodayDecorator
+import com.example.healthroutineapplication.models.CalendarDataClass
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.CalendarMode
 import java.text.SimpleDateFormat
@@ -36,7 +42,7 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
     ): View? {
         Log.d("Fragment","onCreateView")
 
-        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_calendar,container,false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_calendar,container,false)
 
         var startTimeCalendar = Calendar.getInstance()
         var endTimeCalender = Calendar.getInstance()
@@ -117,7 +123,7 @@ class CalendarFragment(exerciseList : List<CalendarDataClass>) : Fragment() {
                 editButton.setOnClickListener {
 
 //                    Toast.makeText(context,"EDIT",Toast.LENGTH_SHORT).show()
-                    val intent = Intent(activity?.applicationContext,MemoEditActivity::class.java)
+                    val intent = Intent(activity?.applicationContext, MemoEditActivity::class.java)
                     if(pos>-1 && exerciseDataList[pos].exerciseList.isNotEmpty()) {
                         intent.putExtra("memo", exerciseDataList[pos].memo)
                         intent.putExtra(
