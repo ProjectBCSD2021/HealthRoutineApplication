@@ -23,7 +23,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="@string/actionBar_title"
+                    android:text="@string/app_name"
                     android:textColor="@color/pointColor" />
             </androidx.appcompat.widget.Toolbar>
 

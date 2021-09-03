@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HealthRoutineApplication</string>
+    <string name="app_name">Hell Planner</string>
     <string name="exercise_list">운동 목록</string>
     <string name="exercise_set">남은\n세트 수</string>
     <string name="start">시 작</string>

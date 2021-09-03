@@ -7,24 +7,32 @@
     <application
         android:name=".ExerciseRoutineApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/fitness_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/fitness_icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthRoutineApplication">
-        <activity android:name=".activities.MemoEditActivity"></activity>
+        <activity
+            android:name=".activities.MemoEditActivity"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".StepCounterService"
             android:enabled="true"
             android:exported="false" />
 
-        <activity android:name=".activities.StepCounterActivity" />
-        <activity android:name=".activities.WorkOutStartActivity" />
-        <activity android:name=".activities.WorkOutListActivity" />
-        <activity android:name=".activities.ExerciseStartingActivity" />
-        <activity android:name=".activities.ExerciseRoutineActivity" />
-        <activity android:name=".activities.MainListActivity">
+        <activity android:name=".activities.StepCounterActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.WorkOutStartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.WorkOutListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ExerciseStartingActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.ExerciseRoutineActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activities.MainListActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
