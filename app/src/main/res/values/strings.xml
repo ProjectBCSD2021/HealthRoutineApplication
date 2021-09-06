@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Hell Planner</string>
+    <string name="exercise_list">운동 목록</string>
+    <string name="exercise_set">남은\n세트 수</string>
+    <string name="start">시 작</string>
+    <string name="pause">일시정지</string>
+    <string name="state_exercising">운동 시간</string>
+    <string name="state_resting">쉬는 시간</string>
+    <string name="next">다 음</string>
+    <string name="routine_set">세트 수 : </string>
+    <string name="routine_weight">중량 : </string>
+    <string name="routine_exercise_time">운동 시간 : </string>
+    <string name="routine_rest_time">쉬는 시간 : </string>
+    <string name="routine_exercise_start">운동 시작하기</string>
+    <string name="sec">(초)</string>
+    <string name="action_menu">메뉴</string>
+    <string name="actionBar_title">Health Routine</string>
+    <string name="menu_list">List</string>
+    <string name="menu_calendar">Calendar</string>
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+    <string name="end_routine">설정한 루틴이 종료되었습니다.</string>
+    <string name="end_exercise">운동 종료</string>
+    <string name="menu_walks">Walks</string>
+    <string name="today_step">오늘의 걸음 수</string>
+    <string name="step">걸음</string>
+    <string name="no_sensor">센서가 없는 기종입니다.</string>
+    <string name="no_memo">메모를 작성하세요!</string>
+    <string name="edit_memo">Edit</string>
+    <string name="ok_memo">OK</string>
+</resources>
